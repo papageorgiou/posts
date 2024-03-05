@@ -1,0 +1,461 @@
+---
+title: "search data analysis: thessaloniki history center"
+author: "Alex Papageorgiou"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+## Setup
+
+library(readr)
+library(lubridate)
+library(zoo)
+library(tidyverse)
+library(broom)
+library(ggplot2)
+
+library(scales)  
+library(ggthemes)
+
+library(extrafont)
+
+
+loadfonts(device = "win")
+
+
+Sys.setlocale(category = "LC_ALL", locale = "Greek")
+
+options(scipen=999)
+options(digits=6)
+
+set.seed(123)
+
+source("funcs.R")
+
+
+```
+
+
+
+
+```{r}
+
+lookup_locations <- tribble( 
+  ~location_ids, ~location_name,
+  '20377' ,          "Thessaloniki Region",
+  "9061579" ,         "Thessaloniki City",
+  "2840",            "USA",
+  "0000",            "Global",
+   "2300",            "Greece"
+  
+  )
+
+
+lookup_lang <- tribble( 
+  ~language_id, ~language_name,
+  "1000",          "English",
+  "1022",         "Greek")
+
+```
+
+
+
+# read data
+
+
+```{r}
+
+search_terms <- read_csv(file="data/searchterms_kith.csv") 
+
+kith_raw <- read_rds("data/res_df_raw_data.rds")
+
+kith_unnested <- read_rds("res_df_march24.rds") %>% mutate(results = map(res_error, function(x) x[["result"]]))  %>% unnest(results)
+
+
+suggestions <- kith_unnested %>% 
+  distinct(seed_term, keyword) %>% 
+  arrange(seed_term) %>% 
+  filter(!seed_term==keyword)
+
+df <- kith_unnested %>% left_join(lookup_locations) %>% left_join(lookup_lang) %>% 
+  select(keyword,location_name, language_name,  searches_past_months, avg_monthly_searches) 
+
+```
+
+
+
+
+
+```{r}
+search_data <- kith_unnested %>% filter(avg_monthly_searches > 0)
+
+start_month  <-  my(search_data$past_months[[1]][[1]])
+start_month <- my("FEBRUARY-2020")
+
+
+##NOTE: get the first entry for "past_months" e.g. c("DECEMBER - 2017" etc
+months_df <- tibble(month=ymd(start_month)+ months(0:47))
+
+
+sd_long <- search_data %>% unnest_longer(searches_past_months) 
+
+
+sd_monthly <- sd_long %>% 
+  mutate(month=rep(months_df$month, len=nrow(sd_long)),
+         month_counter=rep(1:48, len=nrow(sd_long))) %>%   #NOTE:len=nrow(.)
+  mutate(year = year(month) + yday(month)/365 )  %>% 
+  select(keyword, location_ids, language_id, searches_past_months , avg_monthly_searches, month_counter, month, year)
+
+```
+
+
+
+```{r}
+
+sd_month_filt <- sd_monthly %>% 
+  group_by(keyword, location_ids, language_id) %>% 
+  arrange(desc(year)) %>% 
+  tidylog::filter(max(searches_past_months) > 0) %>% 
+  tidylog::filter(keyword!="") 
+
+
+rolling <- sd_month_filt  %>% 
+  
+  group_by(keyword, location_ids, language_id) %>% mutate(n=n()) %>% 
+  arrange(year) %>% 
+  mutate(roll_avg=zoo::rollmean(searches_past_months, 3, fill = NA, align = "right")) %>% 
+  mutate(roll_avg_round=round(roll_avg,digits = 0)) %>% 
+  ungroup()
+```
+
+
+```{r}
+keith <-  c("κιθ χάρινγκ", "κιθ ρίτσαρντς", "heartstopper κιθ κόννορ", "κιθ τζαρετ", "έργα τέχνης από κιθ χάρινγκ",
+            "heartstopper κιθ κόννορ", "κιθ τζαρετ",
+            "έργα τέχνης από κιθ χάρινγκ", "κιθ ρίτσαρντς βιβλιο", "salonika jewish history"  )
+```
+
+
+# substitute
+
+```{r}
+replace_sigma <- function(text) {
+  gsub("σ(?=\\s|$)", "ς", text, perl = TRUE)
+}
+
+# Apply the function to the 'greek_text' column
+rolling$keyword <- sapply(rolling$keyword, replace_sigma)
+
+
+```
+
+
+# rolling
+
+```{r}
+
+
+rolling_f <- rolling %>% filter(str_detect(keyword, "\\(", negate = T)) %>% 
+  rename(Keyword=keyword) %>% 
+  group_by(Keyword, location_ids, language_id) %>% mutate(id=cur_group_id()) %>% 
+  left_join(lookup_locations) %>% left_join(lookup_lang) %>% 
+  mutate(plot_title = glue::glue("Keyword: {Keyword} \n Location: {location_name}"))
+
+rolling_f_distinct <- rolling_f %>% distinct(Keyword, location_ids, language_id, id) %>% 
+  left_join(lookup_locations) %>% left_join(lookup_lang) %>% 
+  filter(!Keyword %in% keith) %>% arrange(id)
+  
+
+```
+
+
+
+# vars - ALL
+
+```{r}
+
+
+caption_gr = " \n Πηγή: Google Search Data February 2020 - January 2024, πρόσβαση μέσω Google Keyword Planner -5/3/2024"
+caption_en = " \n Source: Google Search Data Feb 2020 - Jan 2024 accessed via the Google Keyword Planner. Data collection and visualisastion by Alex Papageo Consulting"
+
+caption_gr_ap = " \n\n Πηγή: Google Search Data Feb 2020 - Jan 2024, πρόσβαση μέσω Google Keyword Planner 5-3-2024. Συλλογή & ανάλυση δεδομένων Alex Papageorgiou Consulting."
+
+
+```
+
+
+
+
+# growth  
+
+
+```{r}
+
+title_growth_gr = "Υπερδιπλασιασμός των Mηνιαίων Aναζητήσεων \n Google σχετικά με το Κέντρο Ιστορίας Θεσσαλονίκης \n σε Ελλάδα και Eξωτερικό \n \n "
+
+title_gr_simple= "Μηνιαίες Αναζητήσεις Google σχ. με το Κέντρο Ιστορίας Θεσσαλονίκης"
+
+title_growth_en = "Monthly Google Searches about the History Center of Thessaloniki \n Over-double in Greece and Internationally \n \n "
+
+title_growth_en_linked = "Consistent Uptrend in Google Searches about the History Center \n  of Thessaloniki both from Greece and Internationally \n "
+
+```
+
+
+
+```{r}
+
+rolling_f %>% filter(id %in% c(24, 5))  %>% 
+  ggplot(aes(x=month, y=roll_avg_round, colour=plot_title)) + geom_line(size = 1.5)  +
+  
+  geom_line(alpha = 0.9, size = 1.8) +
+    geom_smooth(method = "lm", se = F, linetype=3,  alpha=0.3) +
+    expand_limits(y = NULL) +
+    facet_wrap(vars(plot_title), nrow=1,   labeller = label_wrap_gen(width=40)) +
+
+    scale_y_continuous(labels  = scales::comma_format(), expand = c(0, 0), limits = c(0, 450)) + 
+  theme_alex()  +  xlab(label = NULL) + ylab(label = NULL) + 
+  labs(title = title_growth_gr, caption = caption_gr)   +  
+  theme(legend.position ="none" ) + 
+  theme(plot.title = element_text(hjust = 0,  size = rel(1.5), face = "bold")) 
+  #
+  #my_social_theme(strip_title_size=1) + scale_color_wsj()
+
+ggsave("growth_gr.png", height = 5 ,  width= 9)
+ 
+
+#EN 
+
+rolling_f %>% filter(id %in% c(20, 3))  %>% 
+  ggplot(aes(x=month, y=roll_avg_round, colour=plot_title)) + geom_line(size = 1.5)  +
+  
+  geom_line(alpha = 0.9, size = 1.8) +
+    geom_smooth(method = "lm", se = F, linetype=3,  alpha=0.3) +
+    expand_limits(y = NULL) +
+    facet_wrap(vars(plot_title), nrow=1,   labeller = label_wrap_gen(width=40)) +
+    scale_y_continuous(labels  = scales::comma_format(), expand = c(0, 0), limits = c(0, 1300)) + 
+  my_social_theme(strip_title_size=1) + 
+  #theme_alex()+ 
+  xlab(label = NULL) + ylab(label = NULL) + 
+  labs(title = title_growth_en_linked, caption = caption_en)   +  
+  theme(legend.position ="none" ) + 
+  theme(plot.title = element_text(hjust = 0,  size = rel(1.5), face = "bold")) 
+
+
+ggsave("growth_en_linked_social.png", height = 5 ,  width= 9)
+
+ggsave("growth_en_edilwsi_apconsult.png", height = 5 ,  width= 9)
+
+
+```
+
+Για την Εκδληλωση Βαφο. 
+
+```{r}
+
+
+
+
+rolling_f %>% filter(id %in% c(20, 3))  %>% 
+  ggplot(aes(x=month, y=roll_avg_round, colour=plot_title)) + geom_line(size = 1.5)  +
+  
+  geom_line(alpha = 0.9, size = 1.8) +
+    geom_smooth(method = "lm", se = F, linetype=3,  alpha=0.3) +
+    expand_limits(y = NULL) +
+    facet_wrap(vars(plot_title), nrow=1,   labeller = label_wrap_gen(width=40)) +
+    scale_y_continuous(labels  = scales::comma_format(), expand = c(0, 0), limits = c(0, 1300)) + 
+  my_social_theme(strip_title_size=1) + 
+  #theme_alex()+ 
+  xlab(label = NULL) + ylab(label = NULL) + 
+  labs(title = title_gr_simple, caption = caption_gr_ap)   +  
+  theme(legend.position ="none" ) + 
+  theme(plot.title = element_text(hjust = 0,  size = rel(1.4), face = "bold")) 
+
+
+ggsave("growth_gr_linked_social.png", height = 5 ,  width= 9)
+
+ggsave("growth_gr_edilwsi_apconsult.png", height = 5 ,  width= 9)
+
+
+
+```
+
+
+
+
+
+
+
+# countries chart
+
+```{r}
+
+countries_title_gr = "Ποσοστό Συνολικών Αναζητήσεων σχετικά με το Κέντρο Ιστορίας ανά Χώρα Προέλευσης Χρηστών \n "
+
+countries_title_en = "Fraction of Total Searches about the History Center by Country of Origin \n "
+
+```
+
+
+
+```{r}
+
+by_country <- tribble(
+  
+  ~country,  ~share_of_searches, 
+  "Greece",     0.4,
+  "Germany",    0.1, 
+  "Israel",    0.05,
+  "Other countries",   0.35) 
+
+
+# greek
+  
+by_country %>% mutate(country = fct_reorder(country, share_of_searches))  %>% 
+ggplot(aes(x=country, y=share_of_searches, fill=country)) + geom_col()  +  
+  coord_flip() + 
+  scale_fill_brewer()  + 
+  theme_alex() + theme(legend.position = "none") + 
+  ggtitle(countries_title_gr) +
+  labs(caption = caption_gr ) + 
+  scale_y_continuous(labels = label_percent()) + xlab(label = NULL) + ylab(label=NULL)
+
+ggsave("countries_gr.png", height = 5 ,  width= 7)
+
+
+# english
+
+by_country %>% mutate(country = fct_reorder(country, share_of_searches))  %>% 
+ggplot(aes(x=country, y=share_of_searches, fill=country)) + geom_col()  +  
+  coord_flip() + 
+  scale_fill_brewer()  + 
+  theme_alex() + theme(legend.position = "none") + 
+  ggtitle(countries_title_en) +
+  labs(caption = caption_en ) + 
+  scale_y_continuous(labels = label_percent()) + xlab(label = NULL) + ylab(label=NULL)
+
+
+ggsave("countries_en.png", height = 5 ,  width= 7)
+
+```
+
+
+
+
+#  Geo GR
+
+
+```{r}
+title_geo_gr <- "Μηνιαίες Αναζητήσεις Google σχ. με το Κέντρο Ιστορίας ανα Γεωγραφική Περιοχή Ενδιαφέροντος (Ελλάδα) \n "
+
+title_geo_en <- "Monthly Google Searches about the History Center by Geo-location of Interest (Greece) \n "
+
+```
+
+
+```{r}
+
+rolling_f %>% filter(id %in% c(23, 24, 26))  %>%
+#plot_by_category(n_rows = 1, colour_facet_group="title")
+ggplot(aes(x=month, y=roll_avg_round, colour=plot_title)) +
+geom_line(size = 1.5, alpha=0.9)+ theme_alex() +
+xlab(label = NULL) + ylab(label = NULL) +  theme(legend.position = "top") +
+labs(title= title_geo_gr , caption = caption_gr)
+
+
+ggsave("geo_gr.png", height = 5 ,  width= 7)
+
+
+# EN
+# 
+rolling_f %>% filter(id %in% c(23, 24, 26))  %>%
+#plot_by_category(n_rows = 1, colour_facet_group="title")
+ggplot(aes(x=month, y=roll_avg_round, colour=plot_title)) +
+geom_line(size = 1.5, alpha=0.9)+ theme_alex() +
+xlab(label = NULL) + ylab(label = NULL) +  theme(legend.position = "top") +
+labs(title= title_geo_en , caption = caption_en)
+
+ggsave("geo_en.png", height = 5 ,  width= 7)
+
+
+
+```
+
+
+# thess / region / GR / global  one OR multi lines / one plot
+
+```{r eval=FALSE, include=FALSE}
+# 5 29
+
+rolling_f %>% filter(id %in% c(5,6,9,10))  %>% 
+  #plot_by_category(n_rows = 1, colour_facet_group="title")
+  ggplot(aes(x=month, y=roll_avg_round, colour=plot_title)) + 
+  geom_line(size = 1.5, alpha=0.9)+
+  ylab("Search Interest by month - Google \n") + xlab(label = NULL) +
+  labs(caption = "Source: Google Data Aug 2019 - July 2023")  + theme_alex()
+
+```
+
+  
+# history center   one line / one plot
+
+```{r eval=FALSE, include=FALSE}
+
+
+rolling_f %>% filter(id %in% c(41))  %>% 
+  #plot_by_category(n_rows = 1, colour_facet_group="title")
+  ggplot(aes(x=month, y=roll_avg_round, colour=plot_title)) + geom_line(size = 1.5, alpha=0.3)  
+
+```
+
+ 
+
+
+
+
+```{r eval=FALSE, include=FALSE}
+
+csv <- rolling_f %>% filter(id %in% rolling_f_distinct$id) %>% ungroup() %>% 
+  arrange(id) %>% 
+  select(Keyword,location_name, language_name, month, searches_past_months, avg_monthly_searches, id) %>% 
+  filter(!Keyword=="salonika jewish history") %>% select(-avg_monthly_searches, - id) %>% 
+  mutate(year = year(month), month2= month(month, label= T, locale="US" )) %>% 
+  mutate(month=paste(year, month2, sep = "-")) %>% 
+  filter(Keyword %in% c("thessaloniki history center", "???????????? ???????????????? ????????????????????????"))
+  
+write_excel_csv(csv,"kith-raw-data.csv")
+
+```
+
+
+
+```{r eval=FALSE, include=FALSE}
+
+write_excel_csv(csv, "dedomena_anazitiseon_kith.csv")
+
+```
+
+
+```{r eval=FALSE, include=FALSE}
+
+# vs kentriki
+
+
+rolling_f %>% filter(id %in% c(29, 24))  %>% 
+  #plot_by_category(n_rows = 1, colour_facet_group="title")
+  ggplot(aes(x=month, y=roll_avg_round, colour=plot_title)) + 
+  geom_line(size = 1.5, alpha=0.9)+
+  #ylab("???????????????? ?????????????????????? Google") + 
+  ylab("???????????????? ?????????????????????? Google ") + xlab(label = NULL) +
+  labs(caption = "????????: Google Search Data Aug 2019 - July 2023 accessed via Google Ads API")  + theme_alex()
+
+
+ggsave("kith_kentriki.png", height = 5 ,  width= 7)
+
+
+```
+

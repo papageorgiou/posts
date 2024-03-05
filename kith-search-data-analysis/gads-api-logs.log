@@ -1,0 +1,336 @@
+2023-08-24 12:01:59,725:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 88VqEyQGpyxxDeTPGF91Jw, IsFault: False, FaultMessage: None
+2023-08-24 12:02:00,623:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: _svrkguozAbKDq8ykhCvPg, IsFault: False, FaultMessage: None
+2023-08-24 12:02:01,870:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: Rd55kKzb3XD7wlTkLG44QQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:03,685:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: OWugf3L6Z54XALLb1dRiKw, IsFault: False, FaultMessage: None
+2023-08-24 12:02:05,111:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: EPboXzOCih93zO3tlwmkCA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:05,122:google.ads.googleads.client:
+ logger: fetching ..... seed term #6: "history center of thessaloniki"......
+
+2023-08-24 12:02:06,265:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: DeLsy7h3iGFIdXQQRPuorw, IsFault: False, FaultMessage: None
+2023-08-24 12:02:06,275:google.ads.googleads.client:iteration 6: history center of thessaloniki -> 2 ideas
+
+2023-08-24 12:02:07,558:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: IMiTbaSHH6Dk1AM0Q7v3Ig, IsFault: False, FaultMessage: None
+2023-08-24 12:02:07,565:google.ads.googleads.client:
+ logger: fetching ..... seed term #8: "thessaloniki history center"......
+
+2023-08-24 12:02:08,217:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: KZfDWsUkRtY_PbAVZzFVmw, IsFault: False, FaultMessage: None
+2023-08-24 12:02:08,221:google.ads.googleads.client:iteration 8: thessaloniki history center -> 2 ideas
+
+2023-08-24 12:02:08,995:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: mIqBn1mJKhp6xhsrfIUuLQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:10,049:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: iuZEdahfsjINkSUFvTWRkw, IsFault: False, FaultMessage: None
+2023-08-24 12:02:10,685:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 0kQiiQxtgV2yG3IEhPDOoA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:11,492:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 6v3VZDf63TNKI-HBq2q6VQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:12,328:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: Hi7jvjxGv17nWmbSM9m1rA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:13,108:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: dY0lBl8X1ggY4npCyE1hbA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:13,565:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 8nsIE-qDHzdMBdzaenPGvA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:13,576:google.ads.googleads.client:
+ logger: fetching ..... seed term #16: "history center of thessaloniki"......
+
+2023-08-24 12:02:14,434:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: aQTLFINyfjhwJiab9bgRzA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:14,436:google.ads.googleads.client:iteration 16: history center of thessaloniki -> 1 ideas
+
+2023-08-24 12:02:15,169:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: AvgPJk3KR-wBvqFJMrkNTA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:15,181:google.ads.googleads.client:
+ logger: fetching ..... seed term #18: "thessaloniki history center"......
+
+2023-08-24 12:02:15,636:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: Vjnmp_xZBrjVsHERMqgrcQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:15,642:google.ads.googleads.client:iteration 18: thessaloniki history center -> 1 ideas
+
+2023-08-24 12:02:16,071:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: IROLhv1wOnClep0OwR9hvg, IsFault: False, FaultMessage: None
+2023-08-24 12:02:16,845:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: nce5tG5FHakPUDXIsDTYzQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:17,219:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: JX5HNhTaPe153RjNJb3hbQ, IsFault: True, FaultMessage: Resource has been exhausted (e.g. check quota).
+2023-08-24 12:02:17,219:google.ads.googleads.client:Finished call to 'kwideas.R_generate_kw_ideas_tenac' after 0.344(s), this was the 1st time calling it.
+2023-08-24 12:02:20,141:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: p82K3V9PUcl_gM6KRxRxPg, IsFault: False, FaultMessage: None
+2023-08-24 12:02:20,603:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 9iyRsUJSIPp6JN7mGECXDQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:21,309:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 2k_rUm7zYQG6QyD6dR5ovA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:21,731:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: hP6zTwZC205E5Glo--o41Q, IsFault: False, FaultMessage: None
+2023-08-24 12:02:22,050:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 0ahdVLZld2tITYNCHeNgOA, IsFault: True, FaultMessage: Resource has been exhausted (e.g. check quota).
+2023-08-24 12:02:22,051:google.ads.googleads.client:Finished call to 'kwideas.R_generate_kw_ideas_tenac' after 0.297(s), this was the 1st time calling it.
+2023-08-24 12:02:24,336:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: d1R-9WtKxpxQLIlcUX3xng, IsFault: False, FaultMessage: None
+2023-08-24 12:02:24,343:google.ads.googleads.client:
+ logger: fetching ..... seed term #26: "history center of thessaloniki"......
+
+2023-08-24 12:02:24,730:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: hSA33sEmTltfCnXxgjBqEw, IsFault: False, FaultMessage: None
+2023-08-24 12:02:24,732:google.ads.googleads.client:iteration 26: history center of thessaloniki -> 1 ideas
+
+2023-08-24 12:02:25,130:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 0hXSre9KpHWfRQ6Z4LHcZQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:25,144:google.ads.googleads.client:
+ logger: fetching ..... seed term #28: "thessaloniki history center"......
+
+2023-08-24 12:02:25,622:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: cTKe5ldJwXf3IGUeW46vjQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:25,625:google.ads.googleads.client:iteration 28: thessaloniki history center -> 2 ideas
+
+2023-08-24 12:02:25,943:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: ZtYnPkYYXvuwSmmpFZ_IfA, IsFault: True, FaultMessage: Resource has been exhausted (e.g. check quota).
+2023-08-24 12:02:25,943:google.ads.googleads.client:Finished call to 'kwideas.R_generate_kw_ideas_tenac' after 0.328(s), this was the 1st time calling it.
+2023-08-24 12:02:28,314:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: njCAvFK0K0Zjo_LR5L1R5Q, IsFault: False, FaultMessage: None
+2023-08-24 12:02:29,009:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: lVYzlxfx8i6css7XWYDp5w, IsFault: False, FaultMessage: None
+2023-08-24 12:02:29,331:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 25ZbroH3gyNY4eFp-E56Pw, IsFault: True, FaultMessage: Resource has been exhausted (e.g. check quota).
+2023-08-24 12:02:29,331:google.ads.googleads.client:Finished call to 'kwideas.R_generate_kw_ideas_tenac' after 0.297(s), this was the 1st time calling it.
+2023-08-24 12:02:31,077:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: LmV5PwjrWQ7k7yLcnNkI2Q, IsFault: False, FaultMessage: None
+2023-08-24 12:02:32,274:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: eWL3Cf4hyJ1fAg06zBK-HQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:32,985:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: Pcv3LmrNxJA1n-qS1pvp2w, IsFault: False, FaultMessage: None
+2023-08-24 12:02:33,502:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 7kIQbzf37lz-6EUMVWvVnQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:34,383:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: W5WgNGUcM7fxy2V5tsNOuw, IsFault: False, FaultMessage: None
+2023-08-24 12:02:34,395:google.ads.googleads.client:
+ logger: fetching ..... seed term #36: "history center of thessaloniki"......
+
+2023-08-24 12:02:35,606:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: OvQ93tGP4boodTXuX8Uk5Q, IsFault: False, FaultMessage: None
+2023-08-24 12:02:35,610:google.ads.googleads.client:iteration 36: history center of thessaloniki -> 1 ideas
+
+2023-08-24 12:02:36,058:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: jygtDoNTrpCRu7cMOAngPw, IsFault: False, FaultMessage: None
+2023-08-24 12:02:36,067:google.ads.googleads.client:
+ logger: fetching ..... seed term #38: "thessaloniki history center"......
+
+2023-08-24 12:02:36,687:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: oB12Qy9xxQOXy7StK40C0Q, IsFault: False, FaultMessage: None
+2023-08-24 12:02:36,691:google.ads.googleads.client:iteration 38: thessaloniki history center -> 1 ideas
+
+2023-08-24 12:02:37,152:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: o6FE262J0_NQEfbgIwCXEg, IsFault: False, FaultMessage: None
+2023-08-24 12:02:37,466:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: hFz4whZ6Z-dPko4ihq1Rng, IsFault: True, FaultMessage: Resource has been exhausted (e.g. check quota).
+2023-08-24 12:02:37,467:google.ads.googleads.client:Finished call to 'kwideas.R_generate_kw_ideas_tenac' after 0.297(s), this was the 1st time calling it.
+2023-08-24 12:02:39,626:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: duF3BjR5i7Vp5831sDVD8g, IsFault: False, FaultMessage: None
+2023-08-24 12:02:40,648:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: fUfoySFVpfmdgVpgGg1cZg, IsFault: False, FaultMessage: None
+2023-08-24 12:02:41,341:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: ngpgd6o2PSopg8M-3n1nRg, IsFault: False, FaultMessage: None
+2023-08-24 12:02:42,143:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: S4L4W10T0DBH9NuPUMhjcQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:42,934:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: FV60XUdsWLSp1UYRChaCcQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:43,798:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: qaDfMokwGOAsSNMIRTcNMA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:43,807:google.ads.googleads.client:
+ logger: fetching ..... seed term #46: "history center of thessaloniki"......
+
+2023-08-24 12:02:44,551:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: OvDlWRPdJFvcQLXB3kpCcw, IsFault: False, FaultMessage: None
+2023-08-24 12:02:44,561:google.ads.googleads.client:iteration 46: history center of thessaloniki -> 2 ideas
+
+2023-08-24 12:02:45,158:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: FouPNyzpXm3pCiU-melQog, IsFault: False, FaultMessage: None
+2023-08-24 12:02:45,166:google.ads.googleads.client:
+ logger: fetching ..... seed term #48: "thessaloniki history center"......
+
+2023-08-24 12:02:45,609:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: FuLlMIAKwAVd2-QT-bgWsQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:45,613:google.ads.googleads.client:iteration 48: thessaloniki history center -> 2 ideas
+
+2023-08-24 12:02:46,805:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: -YW32AYh1E-91UCoocMU9w, IsFault: False, FaultMessage: None
+2023-08-24 12:02:47,574:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: HGll-jprZzliJbhTHE4tHA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:48,081:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: XWOykC7cVQ36f851TmAtsA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:48,403:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: XoITcT1RYv2dyl5T0cCTQQ, IsFault: True, FaultMessage: Resource has been exhausted (e.g. check quota).
+2023-08-24 12:02:48,403:google.ads.googleads.client:Finished call to 'kwideas.R_generate_kw_ideas_tenac' after 0.312(s), this was the 1st time calling it.
+2023-08-24 12:02:50,557:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: bSx1GV7LRbMEb5L_oNjFzQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:51,213:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: vv6b81l1LNYYS2bKB6j4zw, IsFault: False, FaultMessage: None
+2023-08-24 12:02:51,630:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 58Q_chVGo6CtpW2WNMX7bg, IsFault: False, FaultMessage: None
+2023-08-24 12:02:52,574:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: zfPtRzaJqU-LXsDdm2QO5w, IsFault: False, FaultMessage: None
+2023-08-24 12:02:52,584:google.ads.googleads.client:
+ logger: fetching ..... seed term #56: "history center of thessaloniki"......
+
+2023-08-24 12:02:53,250:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: WvhBM01PnQD3fmSpoEl_Aw, IsFault: False, FaultMessage: None
+2023-08-24 12:02:53,254:google.ads.googleads.client:iteration 56: history center of thessaloniki -> 1 ideas
+
+2023-08-24 12:02:53,894:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: z_WI9wQxd77120wRUXMH5Q, IsFault: False, FaultMessage: None
+2023-08-24 12:02:53,906:google.ads.googleads.client:
+ logger: fetching ..... seed term #58: "thessaloniki history center"......
+
+2023-08-24 12:02:54,211:google.ads.googleads.client:Request
+-------
+Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas
+Host: googleads.googleapis.com
+Headers: {
+  "developer-token": "REDACTED",
+  "x-goog-api-client": "gl-python/3.9.10 grpc/1.47.0 gax/2.11.0 gccl/21.0.0 pb/4.22.3",
+  "x-goog-request-params": "customer_id=5066573848"
+}
+Request: customer_id: "5066573848"
+language: "languageConstants/1022"
+geo_target_constants: "geoTargetConstants/20377"
+keyword_plan_network: GOOGLE_SEARCH
+keyword_annotation: UNSPECIFIED
+keyword_annotation: UNKNOWN
+keyword_annotation: KEYWORD_CONCEPT
+aggregate_metrics {
+  aggregate_metric_types: DEVICE
+}
+historical_metrics_options {
+  year_month_range {
+    start {
+      year: 2016
+      month: SEPTEMBER
+    }
+    end {
+      year: 2025
+      month: DECEMBER
+    }
+  }
+  include_average_cpc: true
+}
+keyword_seed {
+  keywords: "thessaloniki history center"
+}
+
+
+Response
+-------
+Headers: {
+  "google.ads.googleads.v13.errors.googleadsfailure-bin": "\nW\n\u0002X\u0002\u0012&Too many requests. Retry in 4 seconds.*)\"'\b\u0002\u0012\u001fRequests per service per method\u001a\u0002\b\u0004\u0012\u0016kKQM-KogV32LDiUfL5ws5w",
+  "grpc-status-details-bin": "\b\b\u0012/Resource has been exhausted (e.g. check quota).\u001a\u0001\nDtype.googleapis.com/google.ads.googleads.v13.errors.GoogleAdsFailure\u0012q\nW\n\u0002X\u0002\u0012&Too many requests. Retry in 4 seconds.*)\"'\b\u0002\u0012\u001fRequests per service per method\u001a\u0002\b\u0004\u0012\u0016kKQM-KogV32LDiUfL5ws5w",
+  "request-id": "kKQM-KogV32LDiUfL5ws5w"
+}
+Fault: {
+  "created": "@1692867774.211000000",
+  "description": "Error received from peer ipv4:172.217.17.234:443",
+  "file": "src/core/lib/surface/call.cc",
+  "file_line": 967,
+  "grpc_message": "Resource has been exhausted (e.g. check quota).",
+  "grpc_status": 8
+}
+
+2023-08-24 12:02:54,211:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: kKQM-KogV32LDiUfL5ws5w, IsFault: True, FaultMessage: Resource has been exhausted (e.g. check quota).
+2023-08-24 12:02:54,211:google.ads.googleads.client:Finished call to 'kwideas.R_generate_kw_ideas_tenac' after 0.313(s), this was the 1st time calling it.
+2023-08-24 12:02:55,561:google.ads.googleads.client:
+ logger: fetching ..... seed term #58: "thessaloniki history center"......
+
+2023-08-24 12:02:56,243:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: JS_uMKtdxZRjNxVzbJjEYg, IsFault: False, FaultMessage: None
+2023-08-24 12:02:56,248:google.ads.googleads.client:iteration 58: thessaloniki history center -> 1 ideas
+
+2023-08-24 12:02:56,660:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: erM-xfVPUCjRz2LBd0lgNg, IsFault: False, FaultMessage: None
+2023-08-24 12:02:57,369:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: _2pVd96llGeDJ87apxF7cA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:57,753:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 4_j36MXEjJgNpIXDqKT9hQ, IsFault: False, FaultMessage: None
+2023-08-24 12:02:58,162:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: QJFUmE04SeGZ9FZPyUEKlA, IsFault: False, FaultMessage: None
+2023-08-24 12:02:58,499:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: lQv1DbI46OxppKnivd4EFg, IsFault: False, FaultMessage: None
+2023-08-24 12:02:58,835:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: -8BoxgQr2FnAeRKVfa8G8g, IsFault: False, FaultMessage: None
+2023-08-24 12:02:59,449:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 3Ro2POncxcHPh3ow8wbQHg, IsFault: False, FaultMessage: None
+2023-08-24 12:02:59,460:google.ads.googleads.client:
+ logger: fetching ..... seed term #66: "history center of thessaloniki"......
+
+2023-08-24 12:03:00,385:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: vR_YgpmHJKsKVVYAKrJ2jw, IsFault: False, FaultMessage: None
+2023-08-24 12:03:00,395:google.ads.googleads.client:iteration 66: history center of thessaloniki -> 2 ideas
+
+2023-08-24 12:03:00,765:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 4Qfqc02_19KPYvuQyZqCrQ, IsFault: False, FaultMessage: None
+2023-08-24 12:03:00,775:google.ads.googleads.client:
+ logger: fetching ..... seed term #68: "thessaloniki history center"......
+
+2023-08-24 12:03:01,056:google.ads.googleads.client:Request
+-------
+Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas
+Host: googleads.googleapis.com
+Headers: {
+  "developer-token": "REDACTED",
+  "x-goog-api-client": "gl-python/3.9.10 grpc/1.47.0 gax/2.11.0 gccl/21.0.0 pb/4.22.3",
+  "x-goog-request-params": "customer_id=5066573848"
+}
+Request: customer_id: "5066573848"
+language: "languageConstants/1000"
+geo_target_constants: "geoTargetConstants/9061579"
+keyword_plan_network: GOOGLE_SEARCH
+keyword_annotation: UNSPECIFIED
+keyword_annotation: UNKNOWN
+keyword_annotation: KEYWORD_CONCEPT
+aggregate_metrics {
+  aggregate_metric_types: DEVICE
+}
+historical_metrics_options {
+  year_month_range {
+    start {
+      year: 2016
+      month: SEPTEMBER
+    }
+    end {
+      year: 2025
+      month: DECEMBER
+    }
+  }
+  include_average_cpc: true
+}
+keyword_seed {
+  keywords: "thessaloniki history center"
+}
+
+
+Response
+-------
+Headers: {
+  "google.ads.googleads.v13.errors.googleadsfailure-bin": "\nW\n\u0002X\u0002\u0012&Too many requests. Retry in 4 seconds.*)\"'\b\u0002\u0012\u001fRequests per service per method\u001a\u0002\b\u0004\u0012\u0016CxMyi71zhCYmXHYZ4v9mbg",
+  "grpc-status-details-bin": "\b\b\u0012/Resource has been exhausted (e.g. check quota).\u001a\u0001\nDtype.googleapis.com/google.ads.googleads.v13.errors.GoogleAdsFailure\u0012q\nW\n\u0002X\u0002\u0012&Too many requests. Retry in 4 seconds.*)\"'\b\u0002\u0012\u001fRequests per service per method\u001a\u0002\b\u0004\u0012\u0016CxMyi71zhCYmXHYZ4v9mbg",
+  "request-id": "CxMyi71zhCYmXHYZ4v9mbg"
+}
+Fault: {
+  "created": "@1692867781.055000000",
+  "description": "Error received from peer ipv4:172.217.17.234:443",
+  "file": "src/core/lib/surface/call.cc",
+  "file_line": 967,
+  "grpc_message": "Resource has been exhausted (e.g. check quota).",
+  "grpc_status": 8
+}
+
+2023-08-24 12:03:01,056:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: CxMyi71zhCYmXHYZ4v9mbg, IsFault: True, FaultMessage: Resource has been exhausted (e.g. check quota).
+2023-08-24 12:03:01,056:google.ads.googleads.client:Finished call to 'kwideas.R_generate_kw_ideas_tenac' after 0.282(s), this was the 1st time calling it.
+2023-08-24 12:03:02,516:google.ads.googleads.client:
+ logger: fetching ..... seed term #68: "thessaloniki history center"......
+
+2023-08-24 12:03:02,849:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: cJZ7DQgHwAFSsuS16MIlMA, IsFault: False, FaultMessage: None
+2023-08-24 12:03:02,855:google.ads.googleads.client:iteration 68: thessaloniki history center -> 2 ideas
+
+2023-08-24 12:03:03,186:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: cReTGjsE4FAl6vshnCfMWA, IsFault: False, FaultMessage: None
+2023-08-24 12:03:03,558:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: RKHO01TQinEYHNRa_UZ4Mw, IsFault: False, FaultMessage: None
+2023-08-24 12:03:03,864:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: pWXnyaBRWGIydGFFaMt4pw, IsFault: True, FaultMessage: Resource has been exhausted (e.g. check quota).
+2023-08-24 12:03:03,865:google.ads.googleads.client:Finished call to 'kwideas.R_generate_kw_ideas_tenac' after 0.297(s), this was the 1st time calling it.
+2023-08-24 12:03:05,716:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 7RD1a0zzMd8W4Ho-BLzDyA, IsFault: False, FaultMessage: None
+2023-08-24 12:03:06,377:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: gb_xiX8P-bsUYMPNNdU96w, IsFault: False, FaultMessage: None
+2023-08-24 12:03:06,811:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: uFbtCpm-A_DmQoJg8JqCkA, IsFault: False, FaultMessage: None
+2023-08-24 12:03:07,719:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 2yT5vBYmuL6ABA-XEYozpQ, IsFault: False, FaultMessage: None
+2023-08-24 12:03:08,562:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: ubTqegjwHZz3OhjNrpPWLA, IsFault: False, FaultMessage: None
+2023-08-24 12:03:08,576:google.ads.googleads.client:
+ logger: fetching ..... seed term #76: "history center of thessaloniki"......
+
+2023-08-24 12:03:08,919:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: bV-5gNsZcesnkbfP0FR99g, IsFault: False, FaultMessage: None
+2023-08-24 12:03:08,924:google.ads.googleads.client:iteration 76: history center of thessaloniki -> 1 ideas
+
+2023-08-24 12:03:09,700:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 4H6E2G1ZrVyuWhYA8heZcw, IsFault: False, FaultMessage: None
+2023-08-24 12:03:09,712:google.ads.googleads.client:
+ logger: fetching ..... seed term #78: "thessaloniki history center"......
+
+2023-08-24 12:03:10,105:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: McUXsq2ji89RbN4X5sS76Q, IsFault: False, FaultMessage: None
+2023-08-24 12:03:10,110:google.ads.googleads.client:iteration 78: thessaloniki history center -> 1 ideas
+
+2023-08-24 12:03:10,760:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: dBymmWDSVqTHlZ1C0V5C2A, IsFault: False, FaultMessage: None
+2023-08-24 12:03:11,191:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: FpkFd4HriQm3Ym4ImlydqA, IsFault: False, FaultMessage: None
+2023-08-24 12:03:11,533:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: _sDncqZcL0D2WbOWTcqUVA, IsFault: False, FaultMessage: None
+2023-08-24 12:03:11,870:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: kjJCdX5N3Y28vqM205Nqew, IsFault: False, FaultMessage: None
+2023-08-24 12:03:12,216:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: DzhgZ7SHIe99WkwY_2uEEg, IsFault: False, FaultMessage: None
+2023-08-24 12:03:12,529:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: RcVOpMji_4S3jEUpea7fGg, IsFault: True, FaultMessage: Resource has been exhausted (e.g. check quota).
+2023-08-24 12:03:12,529:google.ads.googleads.client:Finished call to 'kwideas.R_generate_kw_ideas_tenac' after 0.296(s), this was the 1st time calling it.
+2023-08-24 12:03:14,431:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: zSHA5DgHEzJX-2AYKhCtww, IsFault: False, FaultMessage: None
+2023-08-24 12:03:15,654:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: bkxizIqVi9QJlA2aQMue0g, IsFault: False, FaultMessage: None
+2023-08-24 12:03:15,665:google.ads.googleads.client:
+ logger: fetching ..... seed term #86: "history center of thessaloniki"......
+
+2023-08-24 12:03:16,596:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 7NS_6u0KZaRWRPvUh5IvGA, IsFault: False, FaultMessage: None
+2023-08-24 12:03:16,600:google.ads.googleads.client:iteration 86: history center of thessaloniki -> 2 ideas
+
+2023-08-24 12:03:16,966:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: NJ9aQC_AMC-yEmh0OlGaIQ, IsFault: False, FaultMessage: None
+2023-08-24 12:03:16,977:google.ads.googleads.client:
+ logger: fetching ..... seed term #88: "thessaloniki history center"......
+
+2023-08-24 12:03:17,490:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: AQIza1j5wsLduR1o9NFnfA, IsFault: False, FaultMessage: None
+2023-08-24 12:03:17,496:google.ads.googleads.client:iteration 88: thessaloniki history center -> 2 ideas
+
+2023-08-24 12:03:18,324:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 26mgMpjvRyNEvBtNrrEstw, IsFault: False, FaultMessage: None
+2023-08-24 12:03:19,703:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: lh5au3UorO_tRyxSg7zrBQ, IsFault: False, FaultMessage: None
+2023-08-24 12:03:20,043:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: VbUoWCToM48upxXzGTjf3Q, IsFault: False, FaultMessage: None
+2023-08-24 12:03:20,451:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: LtAMqBpQfwehT5a5RHbiPg, IsFault: False, FaultMessage: None
+2023-08-24 12:03:21,035:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: t-CdKzS1bzfsrI9DHki85A, IsFault: False, FaultMessage: None
+2023-08-24 12:03:21,624:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: tNgYgjZeiEXybvLsaN1r0Q, IsFault: False, FaultMessage: None
+2023-08-24 12:03:21,933:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 1AFC3xbtCFNbUrzJQUvtsA, IsFault: True, FaultMessage: Resource has been exhausted (e.g. check quota).
+2023-08-24 12:03:21,934:google.ads.googleads.client:Finished call to 'kwideas.R_generate_kw_ideas_tenac' after 0.282(s), this was the 1st time calling it.
+2023-08-24 12:03:23,822:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 8J6YFgLp0fhp-ZvpqGsPlQ, IsFault: False, FaultMessage: None
+2023-08-24 12:03:23,830:google.ads.googleads.client:
+ logger: fetching ..... seed term #96: "history center of thessaloniki"......
+
+2023-08-24 12:03:24,177:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: HB9Mw_B9QytEYz3FoxMKDw, IsFault: False, FaultMessage: None
+2023-08-24 12:03:24,179:google.ads.googleads.client:iteration 96: history center of thessaloniki -> 1 ideas
+
+2023-08-24 12:03:24,523:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 9hdzBtvBhZiFS27v3-uWKQ, IsFault: False, FaultMessage: None
+2023-08-24 12:03:24,534:google.ads.googleads.client:
+ logger: fetching ..... seed term #98: "thessaloniki history center"......
+
+2023-08-24 12:03:24,852:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: hPl0fwGx-QP4hHaXJRD0LA, IsFault: False, FaultMessage: None
+2023-08-24 12:03:24,858:google.ads.googleads.client:iteration 98: thessaloniki history center -> 1 ideas
+
+2023-08-24 12:03:25,180:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: dgdPIHv6WgCTHLgEeAh_jg, IsFault: True, FaultMessage: Resource has been exhausted (e.g. check quota).
+2023-08-24 12:03:25,180:google.ads.googleads.client:Finished call to 'kwideas.R_generate_kw_ideas_tenac' after 0.328(s), this was the 1st time calling it.
+2023-08-24 12:03:26,753:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: 2cooHv2_a00M9ylR6Xi1Fg, IsFault: False, FaultMessage: None
+2023-08-24 12:03:27,339:google.ads.googleads.client:Request made: ClientCustomerId: 5066573848, Host: googleads.googleapis.com, Method: /google.ads.googleads.v13.services.KeywordPlanIdeaService/GenerateKeywordIdeas, RequestId: a6_0yDGBRQazKZECpGCLfg, IsFault: False, FaultMessage: None
