@@ -1,0 +1,258 @@
+---
+title: "Search trends analysis"
+author: "Alex Papageorgiou"
+date: "15/2/2022"
+output: github_document
+---
+
+
+
+# Setup
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+library(readr)
+library(lubridate)
+library(textstem)
+library(reticulate)
+library(zoo)
+library(broom)
+library(scales)
+library(ggrepel)
+library(gghighlight)
+library(ggthemes)
+
+
+
+source("gg-functions.R")
+
+# theme_set(theme_light())
+
+# font =  "Roboto Condensed"
+
+
+
+options(scipen = 999)
+options(digits = 6)
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(extrafont)
+loadfonts(device = "win")
+```
+
+
+# Data
+
+```{r paged.print=TRUE}
+search_data <- read_rds("startup_search_data.rds")
+
+
+search_data %>% sample_n(20)
+```
+
+
+
+# STATS
+
+
+## Add months columns
+
+```{r}
+
+months_df <- tibble(month = ymd("2018-01-01") + months(0:47))
+
+
+sd_long <- search_data %>% unnest_longer(searches_past_months)
+
+
+sd_monthly <- sd_long %>%
+  mutate(
+    month = rep(months_df$month, len = nrow(sd_long)),
+    month_counter = rep(1:48, len = nrow(sd_long))
+  ) %>%
+  mutate(year = year(month) + yday(month) / 365) %>%
+  select(Keyword = keyword, seed, searches_past_months, avg_monthly_searches, month_counter, month, year)
+```
+
+
+## data to csv
+
+```{r}
+# sd_monthly %>%
+#   select(keyword = Keyword, seed, month, search_volume = searches_past_months) %>%
+#   write_csv("startup_search_data.csv")
+```
+
+
+## 3m Rolling avg
+
+```{r}
+
+sd_month_filt <- sd_monthly %>%
+  group_by(Keyword) %>%
+  arrange(desc(year)) %>%
+  dplyr::filter(max(searches_past_months) > 30) %>%
+  ungroup()
+
+rolling <- sd_month_filt %>%
+  group_by(Keyword) %>%
+  mutate(n = n()) %>%
+  arrange(year) %>%
+  mutate(roll_avg = zoo::rollmean(searches_past_months, 3, fill = NA)) %>%
+  mutate(roll_avg_round = round(roll_avg, digits = 0)) %>%
+  ungroup()
+```
+
+## Lms
+
+to estimate avg monthly change
+
+```{r}
+models <- rolling %>% # mutate(search_volume =ifelse(search_volume <100, NA , search_volume) )
+  group_by(Keyword) %>%
+  # dplyr::filter(cumany(searches_past_months>0)) %>%
+  nest() %>%
+  mutate(model = map(data, function(df) lm(roll_avg_round ~ month_counter, data = df))) %>%
+  mutate(
+    by_term = map(model, broom::tidy),
+    perf = map(model, broom::glance)
+  )
+
+# anti <- rolling %>% anti_join(models, by=c('Keyword', "searches_past_months"))
+
+by_term <- models %>%
+  unnest(by_term) %>%
+  select(Keyword, term, estimate)
+
+perf <- models %>%
+  unnest(perf) %>%
+  select(Keyword, r.squared)
+
+
+by_term_perf <- by_term %>%
+  left_join(perf, by = "Keyword") %>%
+  arrange(desc(r.squared)) %>%
+  dplyr::filter(term == "month_counter")
+
+
+kw_rsq_vol <- by_term_perf %>%
+  left_join(search_data %>% select(Keyword = keyword, avg_monthly_searches)) %>%
+  relocate(avg_monthly_searches, .after = Keyword) %>%
+  mutate(estimate = round(estimate, digits = 2))
+```
+
+## Natural log model
+
+to estimate growth rate
+
+```{r}
+model_ln <- rolling %>% # mutate(search_volume =ifelse(search_volume <100, NA , search_volume) )
+  dplyr::filter(roll_avg_round > 0) %>%
+  group_by(Keyword) %>%
+  nest() %>%
+  mutate(model = map(data, function(df) lm(log(roll_avg_round) ~ month_counter, data = df))) %>%
+  mutate(
+    by_term_ln = map(model, broom::tidy),
+    perf_ln = map(model, broom::glance)
+  )
+
+
+by_term_ln <- model_ln %>%
+  unnest(by_term_ln) %>%
+  select(Keyword, term, estimate)
+perf_ln <- model_ln %>%
+  unnest(perf_ln) %>%
+  select(Keyword, r.squared)
+
+by_term_perf_ln <- by_term_ln %>%
+  left_join(perf_ln, by = "Keyword") %>%
+  arrange(desc(r.squared)) %>%
+  dplyr::filter(term == "month_counter") %>%
+  select(Keyword, rsq_log = r.squared, pct_log = estimate)
+```
+
+## Peaked
+
+when the trend had a peaked and then went downwards
+
+```{r}
+
+peaked <- rolling %>%
+  dplyr::filter(roll_avg_round > 0) %>%
+  group_by(Keyword) %>%
+  mutate(
+    max = max(roll_avg_round),
+    rmavg = mean(roll_avg_round),
+    max_year = max(year),
+    min_year = min(year)
+  ) %>%
+  slice_max(roll_avg_round, n = 1) %>%
+  slice_head(n = 1) %>%
+  ungroup() %>%
+  mutate(ratio = rmavg / max) %>%
+  # dplyr::filter(year != min_year, year != max_year) %>%
+  select(Keyword, ratio)
+```
+
+## JOIN all
+
+
+
+```{r}
+# by_term_perf_ln
+all_data <- kw_rsq_vol %>%
+  left_join(by_term_perf_ln) %>%
+  left_join(peaked) %>%
+  # dplyr::filter(is.finite(r.squared), !is.na(estimate)) %>%
+  dplyr::filter(if_all(c(avg_monthly_searches, estimate, r.squared, rsq_log, pct_log, ratio), ~ is.finite(.x))) %>%
+  mutate(
+    estimate = round(estimate),
+    r.squared = round(r.squared, digits = 1),
+    rsq_log = round(rsq_log, digits = 1),
+    pct_log = round(pct_log, digits = 1),
+    ratio = round(ratio, digits = 1)
+  )
+```
+
+## save
+
+```{r}
+# write_rds(rolling, "rolling.rds")
+# write_csv(all_data, "kw_rsq_vol.csv")
+```
+
+## visualise 
+
+keywords with best R squared and positive coeffiecient values 
+ie search queries with consistent and positive pattern of growth
+
+```{r}
+
+selection <- all_data %>%
+  ungroup() %>%
+  dplyr::filter(avg_monthly_searches > 100, estimate > 0) %>%
+  slice_max(order_by = r.squared, n = 9, with_ties = FALSE) %>%
+  pull(Keyword)
+
+rolling %>%
+  dplyr::filter(Keyword %in% selection) %>%
+  ggplot(aes(x = year, y = roll_avg_round, colour = Keyword)) +
+  geom_line() +
+  facet_wrap(~Keyword, nrow = 3, scales = "free_y") +
+  geom_smooth(method = "lm", se = F, linetype = 3, alpha = 0.3) +
+  expand_limits(y = NULL) +
+  theme(legend.position = "none", strip.text = element_text(size = 10)) +
+  ylab("monthly_search_volume_USA")
+```
+
+
+## style plot for publication
+
+
+```{r}
+
+rolling %>%
+  dplyr::filter(Keyword %in% selection) %>%
+  plot_by_category(my_title = "", my_subtitle = "", time_col = "year")
+```
