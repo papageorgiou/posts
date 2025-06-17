@@ -1,0 +1,110 @@
+---
+title: "ytseo-data_n_viz"
+author: "Alex Papageorgiou"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+
+
+```{r}
+
+library(tidyverse)
+library(zoo)
+library(ggthemes)
+library(kw)
+
+```
+
+## transfer values from Google keyword planner csv
+
+```{r}
+search_data <- list("youtube seo agency" = c(110L, 110L, 70L, 90L, 90L, 110L, 110L, 110L, 110L, 110L, 90L, 110L, 70L, 90L, 170L, 140L, 140L, 170L, 210L, 170L, 170L, 140L, 140L, 210L, 170L, 140L, 140L, 170L, 170L, 260L, 170L, 210L, 170L, 210L, 260L, 260L, 390L, 320L, 320L, 390L, 320L, 390L, 480L, 480L, 590L, 720L, 720L, 720L),
+                    "youtube video seo" = c(1900L, 1900L, 1900L, 1600L, 1600L, 1600L, 1600L, 1900L, 1900L, 1900L, 1900L, 2400L, 1900L, 3600L, 2900L, 2400L, 2400L, 2400L, 2400L, 2400L, 2400L, 2900L, 2400L, 2400L, 2400L, 2900L, 2400L, 2900L, 3600L, 2900L, 3600L, 3600L, 2900L, 3600L, 2900L, 3600L, 3600L, 3600L, 3600L, 3600L, 3600L, 3600L, 4400L, 4400L, 4400L, 5400L, 5400L, 5400L),
+                    "youtube seo services" =  c(480L, 390L, 480L, 480L, 480L, 390L, 480L, 390L, 320L, 390L, 320L, 320L, 320L, 1000L, 880L, 480L, 480L, 480L, 480L, 480L, 390L, 590L, 480L, 590L, 390L, 480L, 480L, 590L, 590L, 480L, 590L, 590L, 720L, 720L, 720L, 880L, 720L, 880L, 720L, 880L, 880L, 880L, 1300L, 1300L, 1300L, 2400L, 2900L, 3600L), 
+                    "seo keywords for youtube" = c(70L,	90L,	70L,	70L,	70L,	70L,	70L,	90L,	50L,	50L,	50L,	70L,	90L, 70L,	110L,	110L,	110L,	110L,	110L,	140L,	110L,	140L,	140L,	140L,	140L,	170L,	140L,	170L,	170L,	90L,	110L,	170L,	170L,	210L,	210L,	170L,	170L,	210L,	210L,	210L,	210L,	170L,	210L,	170L, 260L,	320L,	260L,	320L))
+
+
+
+search_df <- search_data %>% enframe() %>% unnest_longer(value) %>% 
+  rename(keyword=name, monthly_search_volume=value)
+
+
+```
+
+
+## 3m rolling avg
+
+```{r}
+
+months_df <- tibble(month=ymd("2021-06-01")+ months(0:47))
+month=rep(months_df$month, len=192)
+
+search_df_3mrl <-search_df %>% mutate(months  = month) %>% 
+  mutate(year = year(month) + yday(month)/365 ) %>% 
+  group_by(keyword) %>% mutate(n=n()) %>% 
+  arrange(year) %>% 
+  mutate(roll_avg=zoo::rollapply(monthly_search_volume, width = 3, by = 1, FUN = mean, partial = TRUE, align = "right")) %>% 
+  mutate(roll_avg_round=round(roll_avg,digits = 0)) %>% 
+  ungroup() %>% 
+  mutate(keyword=fct_reorder2(keyword, year, roll_avg_round, .fun=function(x,y) max(y))) 
+
+
+```
+
+
+```{r}
+# my_social_theme <- function (strip_title_size, base_size = 12, base_family = base_family)  # "Roboto Condensed" sans "Gidole" # Segoe UI
+# {
+#   colors <- deframe(ggthemes::ggthemes_data[["fivethirtyeight"]]) # 
+#   (theme_foundation(base_size = base_size, base_family = base_family) + 
+#       theme(line = element_line(colour = "black"), 
+#             rect = element_rect(fill = colors["White"],  
+#                                 linetype = 0, colour = NA), 
+#             text = element_text(colour = colors["Dark Gray"]), 
+#             #axis.title = element_blank(), 
+#             axis.text = element_text(), 
+#             axis.ticks = element_blank(), axis.line = element_blank(), 
+#             legend.background = element_rect(), legend.position = "none", 
+#             legend.direction = "horizontal", legend.box = "vertical", 
+#             panel.grid = element_line(colour = NULL), 
+#             panel.grid.major = element_line(colour = colors["Medium Gray"]), 
+#             panel.grid.minor = element_blank(), 
+#             plot.title = element_text(hjust = 0,  size = rel(1.5), colour="gray50",  face = "bold"), 
+#             plot.margin = unit(c(1,  1, 1, 1), "lines"), 
+#             #strip.background = element_rect(),
+#             strip.background = element_rect(fill="white", colour="black",size=1),
+#             strip.text = element_text(size=rel(strip_title_size), face = "bold")))
+# }
+
+
+
+```
+
+
+## Data viz
+
+```{r}
+
+
+title <-"Fast-growing search interest in YouTube SEO"
+sub <- NULL
+caption <- "\nSource: Google Search Data, Global June 2021- May 2025 \n github.com/papageorgiou/posts/youtube-trends-seo |  @alex_papageo "
+
+
+search_df_3mrl %>% plot_by_category(my_title = title, my_subtitle = sub, time_col ="months", ts_col="roll_avg_round", 
+                         colour_facet_group = "keyword", n_rows=2, my_caption=caption) + 
+  kw::my_social_theme(base_family = "Arial") + ylab("Monthly Search Volume \n")
+
+
+
+```
+
+
+
+```{r}
+ggsave("types6-8-right-italic2.png", height = 6, width = 8) 
+
+
+```
+
