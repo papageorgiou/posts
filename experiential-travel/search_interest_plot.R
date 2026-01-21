@@ -1,5 +1,5 @@
 # Created: 2026-01-20
-# Updated: 2026-01-20 - LinkedIn mobile, taller graphs, thicker lines, more transparent trend
+# Updated: 2026-01-20 - LinkedIn mobile, taller graphs, + 3-month rolling average version
 # Purpose: Generate publication-ready faceted ggplot of search interest trends for experiential travel companies
 
 # Load required libraries
@@ -165,3 +165,115 @@ print(p)
 invisible(dev.off())
 
 cat("Saved: search_interest_linkedin.png (1080x1440px, LinkedIn mobile)\n")
+
+# ============================================================
+# VERSION 2: 3-Month Rolling Average
+# ============================================================
+
+library(zoo)
+
+# Calculate 3-month rolling average by company (align right to keep Nov 2025)
+combined_df_rolling <- combined_df %>%
+  arrange(company, date) %>%
+  group_by(company) %>%
+  mutate(
+    searches_3m_avg = rollmean(total_searches, k = 3, fill = NA, align = "right")
+  ) %>%
+  ungroup() %>%
+  filter(!is.na(searches_3m_avg))
+
+# Create rolling average plot with subtle linear trend
+p_rolling <- ggplot(combined_df_rolling, aes(x = date, y = searches_3m_avg, color = company)) +
+  # Regression line (trend) - very subtle
+  geom_smooth(
+    method = "lm",
+    se = FALSE,
+    linewidth = 0.7,
+    linetype = "dashed",
+    alpha = 0.15
+  ) +
+  # Data line - thicker
+  geom_line(linewidth = 1.0, alpha = 0.9) +
+  geom_point(size = 1.2, alpha = 0.7) +
+  facet_wrap(~ company, ncol = 1, scales = "free_y") +
+  scale_x_datetime(
+    date_breaks = "1 year",
+    date_labels = "%Y",
+    expand = expansion(mult = c(0.02, 0.02))
+  ) +
+  scale_y_continuous(
+    labels = format_k,
+    expand = expansion(mult = c(0.05, 0.15))
+  ) +
+  scale_color_manual(values = company_colors) +
+  labs(
+    title = "Search Interest in Experiential Travel",
+    subtitle = "3-month rolling average | Feb 2022 - Nov 2025",
+    x = NULL,
+    y = "Searches",
+    caption = "Dashed = trend"
+  ) +
+  theme_minimal(base_size = 9, base_family = "sans") +
+  theme(
+    # Title styling - ensure full visibility
+    plot.title = element_text(
+      face = "bold",
+      size = 12,
+      hjust = 0,
+      margin = margin(b = 1)
+    ),
+    plot.subtitle = element_text(
+      size = 8,
+      color = "gray40",
+      hjust = 0,
+      margin = margin(b = 6)
+    ),
+    plot.caption = element_text(
+      size = 6,
+      color = "gray50",
+      hjust = 1,
+      margin = margin(t = 3)
+    ),
+    # Facet styling - compact
+    strip.text = element_text(
+      face = "bold",
+      size = 9,
+      hjust = 0,
+      margin = margin(b = 1, t = 2)
+    ),
+    strip.background = element_rect(fill = "gray95", color = NA),
+    # Panel styling
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.y = element_line(color = "gray85", linewidth = 0.3),
+    panel.spacing = unit(0.4, "lines"),
+    # Axis styling
+    axis.text.x = element_text(
+      size = 7,
+      color = "gray30"
+    ),
+    axis.text.y = element_text(size = 7, color = "gray30"),
+    axis.title.y = element_text(
+      size = 8,
+      color = "gray30",
+      margin = margin(r = 3)
+    ),
+    # Legend - hide since facets already show company
+    legend.position = "none",
+    # Plot margins - tight
+    plot.margin = margin(t = 8, r = 8, b = 5, l = 5)
+  )
+
+# Save rolling average version
+png(
+  "search_interest_linkedin_rolling.png",
+  width = 3.6,
+  height = 4.8,
+  units = "in",
+  res = 300,
+  bg = "white"
+)
+print(p_rolling)
+invisible(dev.off())
+
+cat("Saved: search_interest_linkedin_rolling.png (3-month rolling average)\n")
