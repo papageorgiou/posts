@@ -53,17 +53,24 @@ withlocals_long <- transform_data(withlocals_df, "Withlocals")
 # Combine all datasets
 combined_df <- bind_rows(kindred_long, welcome_long, withlocals_long)
 
-# Set factor levels for consistent ordering
+# Set factor levels with descriptions for facet titles
 combined_df$company <- factor(
   combined_df$company,
-  levels = c("Kindred", "Welcome Pickups", "Withlocals")
+  levels = c("Kindred", "Welcome Pickups", "Withlocals"),
+  labels = c("Kindred (home swaps)", "Welcome Pickups (friendly airport transfers)", "Withlocals (local tours)")
 )
 
-# Define a refined color palette
+#Define colors - darker Google colors (red, blue, yellow)
+# company_colors <- c(
+#  "Kindred (home swaps)" = "#C5221F",
+#  "Welcome Pickups (friendly airport transfers)" = "#2A5DB0",
+#  "Withlocals (local tours)" = "#E6A100"
+# )
+
 company_colors <- c(
-  "Kindred" = "#2E86AB",
-  "Welcome Pickups" = "#A23B72",
-  "Withlocals" = "#F18F01"
+  "Kindred (home swaps)" = "#2A2D32",
+  "Welcome Pickups (friendly airport transfers)" = "#77C693",
+  "Withlocals (local tours)" = "#7A1E4D"
 )
 
 
@@ -76,17 +83,21 @@ library(zoo)
 
 
 # Calculate 3-month rolling average by company (align right to keep Nov 2025)
+# Then normalize so peak = 100 for each company
 combined_df_rolling <- combined_df %>%
   arrange(company, date) %>%
   group_by(company) %>%
   mutate(
     searches_3m_avg = rollmean(total_searches, k = 3, fill = NA, align = "right")
   ) %>%
-  ungroup() %>%
-  filter(!is.na(searches_3m_avg))
+  filter(!is.na(searches_3m_avg)) %>%
+  mutate(
+    normalized = (searches_3m_avg / max(searches_3m_avg)) * 100
+  ) %>%
+  ungroup()
 
 # Create rolling average plot with subtle linear trend
-p_rolling <- ggplot(combined_df_rolling, aes(x = date, y = searches_3m_avg, color = company)) +
+p_rolling <- ggplot(combined_df_rolling, aes(x = date, y = normalized, color = company)) +
   # Regression line (trend) - very subtle
   geom_smooth(
     method = "lm",
@@ -106,16 +117,17 @@ p_rolling <- ggplot(combined_df_rolling, aes(x = date, y = searches_3m_avg, colo
     expand = expansion(mult = c(0.02, 0.02))
   ) +
   scale_y_continuous(
-    labels = format_k,
-    expand = expansion(mult = c(0.05, 0.15))
+    limits = c(0, 100),
+    breaks = c(0, 25, 50, 75, 100),
+    expand = expansion(mult = c(0.02, 0.05))
   ) +
   scale_color_manual(values = company_colors) +
   labs(
     title = "Rising Search Interest in \nExperiential Travel Startups",
     #subtitle = "3 startups experiencing growing search demand",
     x = NULL,
-    y = "Monthly Searches, Google US",
-    caption = "Search demand volume is directional and based on brand-related searches. \nData source: Google Search data, US (3m rolling avg) Feb 2022-Nov 2025. \nhttps://github.com/papageorgiou/posts/tree/master/experiential-travel\n@alex_papageo"
+    y = "Relative Search Demand (peak = 100)",
+    caption = "Search demand volume is directional and based on brand-related searches. \nData source: Google Search data, US (3m rolling avg) Feb 2022-Nov 2025.\nData, code and analysis by @alex_papageo available on Github: \nhttps://github.com/papageorgiou/posts/tree/master/experiential-travel"
   ) +
   theme_minimal(base_size = 9, base_family = "sans") +
   theme(
