@@ -92,7 +92,7 @@ subtitle <- sprintf(
 my_caption <- paste0(
   "Source: Google Ads API (Keyword Planner) for branded search;\n",
   "Yahoo Finance for monthly share price (mean daily close). Jun 2022 – May 2026.\n",
-  "Data, code & methodology: github.com/papageorgiou/posts/tree/main/branded-search-vs-stock-sofi-ttd-upst\n",
+  "Data, code & methodology: github.com/papageorgiou/posts/tree/master/branded-search-vs-stock-sofi-ttd-upst\n",
   "By @alex_papageo"
 )
 

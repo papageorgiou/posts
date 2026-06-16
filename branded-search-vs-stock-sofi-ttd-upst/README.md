@@ -42,6 +42,8 @@ The raw data were produced by an upstream pipeline (search-term generation, Goog
 Rscript viz_search_vs_stock.R
 ```
 
+Live post folder: **github.com/papageorgiou/posts/tree/master/branded-search-vs-stock-sofi-ttd-upst**
+
 This reads the self-contained extract in `data/monthly_aligned_3companies.csv` (filtered from the upstream `monthly_aligned_data.csv`), embeds the company logos in `assets/logos/`, and writes `outputs/search_vs_stock_sofi_ttd_upst.png` (1080×1350, 150 dpi).
 
 R packages: `tidyverse`, `ggtext`, `ggthemes`, `ragg`, `magick` (logo prep).
