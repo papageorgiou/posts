@@ -91,10 +91,13 @@ meta <- tribble(
 # ---- Chart builder -----------------------------------------------------------
 # start_date : first month of the window (also the index base = 100)
 # base_label : human label for that base month, e.g. "January 2024"
-make_chart <- function(start_date, base_label, out_file) {
+# sym_order  : company tickers top-to-bottom in the facet stack
+make_chart <- function(start_date, base_label, out_file,
+                       sym_order = c("SOFI", "TTD", "UPST")) {
 
   start_date     <- as.Date(start_date)
   highlight_2026 <- as.Date("2026-01-01")
+  lvl            <- meta$label[match(sym_order, meta$symbol)]  # facet stack order
 
   # Long form (for the lines), indexed to 100 at the window's first month.
   long_df <- raw |>
@@ -107,7 +110,7 @@ make_chart <- function(start_date, base_label, out_file) {
     mutate(index = value / first(value) * 100) |>
     ungroup() |>
     left_join(meta, by = "symbol") |>
-    mutate(label = fct_reorder(label, order))
+    mutate(label = factor(label, levels = lvl))
 
   # Wide form (for the gap ribbon): one row per company-month.
   wide_df <- long_df |>
@@ -168,7 +171,7 @@ make_chart <- function(start_date, base_label, out_file) {
                  expand = expansion(mult = c(0.02, 0.16))) +
     scale_y_continuous(labels = scales::label_number()) +
     labs(
-      title    = "What consumers want and what the market thinks are pulling apart",
+      title    = "When what consumers want pulls apart from what the market thinks",
       subtitle = subtitle,
       caption  = my_caption,
       x = NULL, y = sprintf("Indexed to 100 at %s", base_label)
@@ -204,4 +207,5 @@ make_chart <- function(start_date, base_label, out_file) {
 }
 
 make_chart("2024-01-01", "January 2024", "outputs/search_vs_stock_from2024.png")
-make_chart("2025-01-01", "January 2025", "outputs/search_vs_stock_from2025.png")
+make_chart("2025-01-01", "January 2025", "outputs/search_vs_stock_from2025.png",
+           sym_order = c("TTD", "UPST", "SOFI"))  # SoFi moved to the bottom
