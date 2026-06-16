@@ -2,7 +2,7 @@
 
 A LinkedIn data visualization comparing **branded Google search demand** against the **share price** for three digital-first public companies, June 2022 to May 2026.
 
-Both series are **rebased to 100 at June 2022** (indexed overlay), so the chart shows relative growth on a single scale per company — no dual y-axis.
+The idea is to look at the **gap between what the market thinks (share price) and what consumers want (branded search demand)**. Both series are **rebased to 100 at June 2022** (indexed overlay), so the chart shows relative growth on a single scale per company — no dual y-axis.
 
 ![Chart](outputs/search_vs_stock_sofi_ttd_upst.png)
 
@@ -28,7 +28,9 @@ Branded search rose for all three companies over the period, but only SoFi's sha
 
 **Share price.** Daily closing prices from Yahoo Finance, resampled to a monthly mean (the average of the daily closes within each calendar month). Prices are split/dividend adjusted.
 
-**Indexing.** For each company and each series, the value is divided by its June 2022 value and multiplied by 100, so every line starts at 100. The dashed line at 100 marks that baseline; end-of-line labels show the percentage change versus the baseline.
+**Outlier handling.** Google Ads Keyword Planner occasionally returns a single-month spike that is a reporting artifact rather than real demand — for example, The Trade Desk's branded search reads 10,490 in November 2024, against roughly 600–2,500 in the surrounding months and 590 the very next month. A Hampel filter (7-month window, 3 median-absolute-deviations) flags such points, with an added guard that only replaces a month if it is also at least 2.5x above/below its local median, so ordinary month-to-month noise is left untouched. Flagged points are replaced with the local median. This affects only the branded search series (one point, TTD Nov 2024); share prices are never altered.
+
+**Indexing.** For each company and each series, the (outlier-corrected) value is divided by its June 2022 value and multiplied by 100, so every line starts at 100. The dashed line at 100 marks that baseline; end-of-line labels show the percentage change versus the baseline.
 
 **Window.** June 2022 – May 2026 (48 aligned months).
 

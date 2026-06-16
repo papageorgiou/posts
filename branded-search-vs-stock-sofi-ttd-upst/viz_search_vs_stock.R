@@ -47,6 +47,32 @@ my_social_theme <- function(strip_title_size = 1, base_size = 12,
 # ---- Data --------------------------------------------------------------------
 raw <- read_csv("data/monthly_aligned_3companies.csv", show_col_types = FALSE)
 
+# Google Ads Keyword Planner occasionally reports a single-month spike that is a
+# data artifact (e.g. TTD branded search = 10,490 in Nov 2024 vs ~600–2,500 in the
+# surrounding months, then back to 590). A Hampel filter flags points more than
+# t0 median-absolute-deviations from the local median (7-month window). To avoid
+# reshaping ordinary month-to-month noise, a point is only replaced if it is ALSO
+# at least `ratio`x above / below the local median — so only genuine spikes are
+# touched. Applied to branded search only; prices are untouched.
+hampel <- function(x, k = 3, t0 = 3, ratio = 2.5) {
+  y <- x
+  for (i in seq_along(x)) {
+    win   <- x[max(1, i - k):min(length(x), i + k)]
+    med   <- median(win)
+    sigma <- 1.4826 * median(abs(win - med))
+    is_outlier <- is.finite(sigma) && sigma > 0 && abs(x[i] - med) > t0 * sigma
+    is_extreme <- med > 0 && (x[i] > ratio * med || x[i] < med / ratio)
+    if (is_outlier && is_extreme) y[i] <- med
+  }
+  y
+}
+
+raw <- raw |>
+  arrange(symbol, month) |>
+  group_by(symbol) |>
+  mutate(branded_vol = hampel(branded_vol)) |>
+  ungroup()
+
 # Per-company labels: logo + common name + ticker + one-line descriptor.
 # Strip label is rendered as HTML by ggtext::element_textbox_simple().
 meta <- tribble(
@@ -85,13 +111,14 @@ end_df <- plot_df |>
 
 # ---- Chart -------------------------------------------------------------------
 subtitle <- sprintf(
-  "Monthly <span style='color:%s'>**branded Google search**</span> vs <span style='color:%s'>**share price**</span>, both indexed to 100 at June 2022",
+  "<span style='color:%s'>**Branded Google search**</span> (what consumers want) vs <span style='color:%s'>**share price**</span> (what the market thinks), indexed to 100 at June 2022",
   col_search, col_price
 )
 
 my_caption <- paste0(
   "Source: Google Ads API (Keyword Planner) for branded search;\n",
   "Yahoo Finance for monthly share price (mean daily close). Jun 2022 – May 2026.\n",
+  "Single-month search outliers smoothed (Hampel filter, search series only).\n",
   "Data, code & methodology: github.com/papageorgiou/posts/tree/master/branded-search-vs-stock-sofi-ttd-upst\n",
   "By @alex_papageo"
 )
