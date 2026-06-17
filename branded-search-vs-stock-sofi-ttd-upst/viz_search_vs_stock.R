@@ -206,9 +206,14 @@ make_chart <- function(start_date, base_label, out_file,
     scale_x_date(date_labels = "%Y", date_breaks = "1 year",
                  expand = expansion(
                    mult = c(0.02, if (is.null(icons)) 0.16 else 0.26))) +
-    scale_y_continuous(labels = scales::label_number()) +
+    scale_y_continuous(
+      labels = scales::label_number(),
+      # extra top headroom for the icon variants so a line-tip glyph that
+      # lands near a panel's maximum is not clipped by the panel edge
+      expand = expansion(mult = c(0.05, if (is.null(icons)) 0.05 else 0.14))) +
+    coord_cartesian(clip = "off") +
     labs(
-      title    = "When what consumers want pulls apart from what the market thinks",
+      title    = "The crowd is searching. The market isn't buying.",
       subtitle = subtitle,
       caption  = my_caption,
       x = NULL, y = sprintf("Indexed to 100 at %s", base_label)
