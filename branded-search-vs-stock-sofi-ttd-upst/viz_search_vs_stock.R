@@ -213,7 +213,7 @@ make_chart <- function(start_date, base_label, out_file,
       expand = expansion(mult = c(0.05, if (is.null(icons)) 0.05 else 0.14))) +
     coord_cartesian(clip = "off") +
     labs(
-      title    = "The crowd is searching. The market isn't buying.",
+      title    = "What people search vs. what the market pays",
       subtitle = subtitle,
       caption  = my_caption,
       x = NULL, y = sprintf("Indexed to 100 at %s", base_label)
