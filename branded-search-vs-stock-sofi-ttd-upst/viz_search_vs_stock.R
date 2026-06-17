@@ -92,8 +92,13 @@ meta <- tribble(
 # start_date : first month of the window (also the index base = 100)
 # base_label : human label for that base month, e.g. "January 2024"
 # sym_order  : company tickers top-to-bottom in the facet stack
+# icons      : NULL = no icons (unchanged original). Otherwise a list with
+#              numeric `search_h` / `nasdaq_h` (icon heights in px) and a
+#              `gap_nudge` (days to push the gap label further right so the
+#              line-end icons sit clear of it).
 make_chart <- function(start_date, base_label, out_file,
-                       sym_order = c("SOFI", "TTD", "UPST")) {
+                       sym_order = c("SOFI", "TTD", "UPST"),
+                       icons = NULL) {
 
   start_date     <- as.Date(start_date)
   highlight_2026 <- as.Date("2026-01-01")
@@ -130,6 +135,21 @@ make_chart <- function(start_date, base_label, out_file,
       gaptext = sprintf("%+d pt\ngap", gap)
     )
 
+  # Line-end icons: a magnifying glass at the branded-search tip, the Nasdaq
+  # wordmark at the share-price tip, so the viewer instantly reads which line
+  # is consumer demand and which is the market. Rendered via gridtext <img>.
+  if (!is.null(icons)) {
+    icon_df <- end_df |>
+      transmute(
+        symbol, label, month,
+        search_y = search, price_y = price,
+        search_img = sprintf("<img src='assets/icons/google_glass.png' height='%g'>",
+                             icons$search_h),
+        nasdaq_img = sprintf("<img src='assets/icons/nasdaq.png' height='%g'>",
+                             icons$nasdaq_h)
+      )
+  }
+
   subtitle <- sprintf(
     paste0("<span style='color:%s'>**Branded Google search**</span> (consumer demand) vs ",
            "<span style='color:%s'>**share price**</span> (the market), indexed to 100 at %s. ",
@@ -143,6 +163,20 @@ make_chart <- function(start_date, base_label, out_file,
     "Indexed to 100 at the first month. Single-month search outliers smoothed (Hampel filter, search series only).\n",
     "Data, code & methodology: github.com/papageorgiou/posts/tree/master/branded-search-vs-stock-sofi-ttd-upst\n",
     "By @alex_papageo"
+  )
+
+  # Icon layers (NULL when icons are off → silently ignored by ggplot).
+  # Anchored at each line tip (hjust = 0) so they read just to the right of
+  # where the line ends, with the gap label nudged further right to stay clear.
+  icon_layers <- if (is.null(icons)) NULL else list(
+    ggtext::geom_richtext(
+      data = icon_df, aes(x = month, y = search_y, label = search_img),
+      hjust = 0, vjust = 0.5, nudge_x = 8,
+      fill = NA, label.color = NA, label.padding = unit(0, "pt")),
+    ggtext::geom_richtext(
+      data = icon_df, aes(x = month, y = price_y, label = nasdaq_img),
+      hjust = 0, vjust = 0.5, nudge_x = 8,
+      fill = NA, label.color = NA, label.padding = unit(0, "pt"))
   )
 
   p <- ggplot(wide_df, aes(month)) +
@@ -165,10 +199,13 @@ make_chart <- function(start_date, base_label, out_file,
     geom_point(data = end_df, aes(y = price),  colour = col_price,  size = 2.3) +
     geom_text(data = end_df, aes(y = mid, label = gaptext),
               hjust = -0.12, vjust = 0.5, size = 3.5, fontface = "bold",
-              colour = col_gap, family = my_font, lineheight = 0.9) +
+              colour = col_gap, family = my_font, lineheight = 0.9,
+              nudge_x = if (is.null(icons)) 0 else icons$gap_nudge) +
+    icon_layers +
     facet_wrap(~ label, ncol = 1, scales = "free_y") +
     scale_x_date(date_labels = "%Y", date_breaks = "1 year",
-                 expand = expansion(mult = c(0.02, 0.16))) +
+                 expand = expansion(
+                   mult = c(0.02, if (is.null(icons)) 0.16 else 0.26))) +
     scale_y_continuous(labels = scales::label_number()) +
     labs(
       title    = "When what consumers want pulls apart from what the market thinks",
@@ -209,3 +246,14 @@ make_chart <- function(start_date, base_label, out_file,
 make_chart("2024-01-01", "January 2024", "outputs/search_vs_stock_from2024.png")
 make_chart("2025-01-01", "January 2025", "outputs/search_vs_stock_from2025.png",
            sym_order = c("TTD", "UPST", "SOFI"))  # SoFi moved to the bottom
+
+# Two icon variants of the 2025 chart (originals above are left untouched).
+# A magnifying glass marks the branded-search line, the Nasdaq wordmark the
+# share-price line, so the reader instantly knows which is which.
+# v1: compact, understated icons.  v2: slightly larger, more legible.
+make_chart("2025-01-01", "January 2025", "outputs/search_vs_stock_from2025_icons_v1.png",
+           sym_order = c("TTD", "UPST", "SOFI"),
+           icons = list(search_h = 17, nasdaq_h = 11, gap_nudge = 70))
+make_chart("2025-01-01", "January 2025", "outputs/search_vs_stock_from2025_icons_v2.png",
+           sym_order = c("TTD", "UPST", "SOFI"),
+           icons = list(search_h = 22, nasdaq_h = 15, gap_nudge = 95))
