@@ -252,8 +252,8 @@ make_chart("2025-01-01", "January 2025", "outputs/search_vs_stock_from2025.png",
 # share-price line, so the reader instantly knows which is which.
 # v1: compact, understated icons.  v2: slightly larger, more legible.
 make_chart("2025-01-01", "January 2025", "outputs/search_vs_stock_from2025_icons_v1.png",
-           sym_order = c("TTD", "UPST", "SOFI"),
+           sym_order = c("UPST", "SOFI", "TTD"),
            icons = list(search_h = 17, nasdaq_h = 11, gap_nudge = 70))
 make_chart("2025-01-01", "January 2025", "outputs/search_vs_stock_from2025_icons_v2.png",
-           sym_order = c("TTD", "UPST", "SOFI"),
+           sym_order = c("UPST", "SOFI", "TTD"),
            icons = list(search_h = 22, nasdaq_h = 15, gap_nudge = 95))
