@@ -1,17 +1,23 @@
-# Created: 2026-06-18
+# Created: 2026-06-18 (rev 2026-06-19)
 # Purpose: Patchwork layout of "experiential X" search-interest trends.
-#          Bare "Experiential" full-width on top, 3x3 grid of the 9 niches below.
-#          No trendlines. Each facet a different colour. Three style variants.
+#          Bare "experiential" full-width on top, grid of the niches below.
+#          No trendlines. Each facet a different colour. Three style variants,
+#          all built on the Google Trends colour palette.
+#          Facet titles: lowercase, large/bold, magnifying-glass prefix.
+#          Layouts: 3x3 (all 9 niches), plus 3x2 and 2x3 (6-niche) variants.
 # Data:    10 *.Explore.md webclips (monthly Google Trends, 0-100 per-term norm).
+# Note:    rendered via ragg so the colour magnifying-glass emoji shows up.
 
 library(tidyverse)
 library(lubridate)
 library(zoo)
 library(ggtext)
 library(patchwork)
+library(ragg)
 
 setwd("/Users/alexp/gd_alpapag/apclients/posts/experiential")
 base_family <- "Helvetica Neue"
+MAG <- "\U0001F50D"   # magnifying-glass icon
 
 # ------------------------------------------------------------------
 # 1. Parse + prep (same pipeline as experiential_trends.R)
@@ -54,63 +60,80 @@ combined <- map_dfr(files, parse_explore) %>%
 grid_order <- c("Education", "Marketing", "Retail", "Design", "Wellness",
                 "Travel", "Music", "Entertainment", "Dating")
 
+# Facet labels are lowercase with a magnifying-glass prefix: "🔍 experiential music".
+facet_lab <- function(x) paste0(MAG, " experiential ", tolower(x))
+
 top_df  <- combined %>% filter(activity == "Experiential")
-grid_df <- combined %>%
-  filter(activity %in% grid_order) %>%
-  mutate(activity   = factor(activity, levels = grid_order),
-         facet_label = factor(paste("Experiential", as.character(activity)),
-                              levels = paste("Experiential", grid_order)))
+
+make_grid_df <- function(niches) {
+  combined %>%
+    filter(activity %in% niches) %>%
+    mutate(activity    = factor(activity, levels = niches),
+           facet_label = factor(facet_lab(as.character(activity)),
+                                levels = facet_lab(niches)))
+}
 
 # ------------------------------------------------------------------
-# 2. Style definitions (three variants)
+# 2. Style definitions (three variants, all Google-palette based)
 # ------------------------------------------------------------------
-# Each variant: figure bg, panel bg, grid, text, strip fill/colour, top colour,
-# 9-colour facet palette, geom style ("line" or "area"), point flag.
+# Google brand colours: blue #4285F4, red #EA4335, yellow #FBBC04, green #34A853.
+# Light variants use the bright Google categorical palette; the dark variant uses
+# Google's official dark-mode tints (blue #8AB4F8, red #F28B82, etc.).
+
+# Bright Google categorical palette (9 hues).
+pal_google <- c("#4285F4", "#EA4335", "#FBBC04", "#34A853", "#A142F4",
+                "#24C1E0", "#FF6D01", "#E52592", "#5F6368")
+# Google dark-mode tints (9 hues).
+pal_google_dark <- c("#8AB4F8", "#F28B82", "#FDD663", "#81C995", "#D7AEFB",
+                     "#78D9EC", "#FCAD70", "#FF8BCB", "#9AA0A6")
+
+GBLUE <- "#4285F4"; GRED <- "#EA4335"
+GBLUE_D <- "#8AB4F8"; GRED_D <- "#F28B82"
 
 styles <- list(
   warm = list(
     name = "warm",
     bg_fig = "#FAF8F5", bg_panel = "#F6EFE8", grid = "#E2D6CB",
-    text = "#2B2F33", muted = "gray40", strip_fill = "#EADfd3",
-    strip_col = "#2B2F33", top_col = "#1c1f22", accent = "#B83A2F",
-    geom = "line", points = TRUE,
-    pal = c("#2B5FB8","#B83A2F","#8F6A00","#13734A","#6B4FA3",
-            "#1F7A7A","#C05A1A","#B44A7A","#4E5A63")
+    text = "#202124", muted = "#5F6368", strip_fill = "#EADfd3",
+    strip_col = "#202124", top_col = GBLUE, accent = GRED,
+    title_col = GRED,
+    geom = "line", points = TRUE, pal = pal_google
   ),
   newsprint = list(
     name = "newsprint",
-    bg_fig = "#F7F9F8", bg_panel = "#EFF2F0", grid = "#D2D8D4",
-    text = "#202427", muted = "gray40", strip_fill = "#E4E9E6",
-    strip_col = "#202427", top_col = "#2C4E8F", accent = "#A8322A",
-    geom = "area", points = FALSE,
-    pal = c("#2C4E8F","#A8322A","#856000","#0F6A3F","#5B4A86",
-            "#2C7D6C","#A6562B","#8E3D57","#586168")
+    bg_fig = "#FFFFFF", bg_panel = "#F8F9FA", grid = "#DADCE0",
+    text = "#202124", muted = "#5F6368", strip_fill = "#F1F3F4",
+    strip_col = "#202124", top_col = GBLUE, accent = GRED,
+    title_col = GRED,
+    geom = "area", points = FALSE, pal = pal_google
   ),
   dark = list(
     name = "dark",
     bg_fig = "#14171C", bg_panel = "#1E232B", grid = "#2E343E",
     text = "#E6E8EC", muted = "#9AA3AE", strip_fill = "#272D37",
-    strip_col = "#F0F2F5", top_col = "#4C8DF6", accent = "#FF7A66",
-    geom = "line", points = TRUE,
-    pal = c("#4C8DF6","#FF6B5E","#FFC857","#3DD68C","#B084F5",
-            "#36D6D6","#FF9F43","#FF6FA5","#9AA7B4")
+    strip_col = "#F0F2F5", top_col = GBLUE_D, accent = GRED_D,
+    title_col = GRED_D,
+    geom = "line", points = TRUE, pal = pal_google_dark
   )
 )
 
-theme_variant <- function(s, strip_size = 0.82) {
+theme_variant <- function(s, strip_size = 1.05) {
   theme_minimal(base_size = 12, base_family = base_family) +
     theme(
       plot.background  = element_rect(fill = s$bg_fig, colour = NA),
       panel.background = element_rect(fill = s$bg_panel, colour = NA),
       panel.grid.major = element_line(colour = s$grid, linewidth = 0.3),
       panel.grid.minor = element_blank(),
-      panel.grid.major.x = element_blank(),
+      # vertical gridlines on (one per year break)
+      panel.grid.major.x = element_line(colour = s$grid, linewidth = 0.3),
       panel.spacing    = unit(0.6, "lines"),
       text       = element_text(colour = s$text),
       axis.text  = element_text(colour = s$muted, size = rel(0.68)),
       axis.title = element_text(colour = s$muted, size = rel(0.72)),
-      strip.text = element_text(face = "bold", size = rel(strip_size), hjust = 0,
-                                colour = s$strip_col, margin = margin(b = 2, t = 3)),
+      # larger + bolder facet titles
+      strip.text = element_text(family = base_family, face = "bold",
+                                size = rel(strip_size), hjust = 0,
+                                colour = s$strip_col, margin = margin(b = 3, t = 4)),
       strip.background = element_rect(fill = s$strip_fill, colour = NA),
       legend.position = "none",
       plot.margin = margin(t = 4, r = 8, b = 2, l = 4)
@@ -120,7 +143,7 @@ theme_variant <- function(s, strip_size = 0.82) {
 # ------------------------------------------------------------------
 # 3. Plot builders
 # ------------------------------------------------------------------
-add_geom <- function(p, s, colour, fill = NULL) {
+add_geom <- function(p, s, colour) {
   if (s$geom == "area") {
     p <- p + geom_area(fill = colour, alpha = 0.22, colour = NA) +
       geom_line(colour = colour, linewidth = 0.8)
@@ -140,19 +163,20 @@ build_top <- function(s) {
     scale_y_continuous(limits = c(0, 100), breaks = c(0, 50, 100),
                        expand = expansion(mult = c(0.02, 0.08))) +
     labs(x = NULL, y = NULL) +
-    facet_wrap(~ "Experiential (the umbrella term)") +
-    theme_variant(s, strip_size = 0.95)
+    facet_wrap(~ paste0(MAG, " experiential — the umbrella term")) +
+    theme_variant(s, strip_size = 1.25)
 }
 
-build_grid <- function(s) {
-  ggplot(grid_df, aes(date, value_roll, colour = activity, fill = activity)) +
+build_grid <- function(s, niches, ncol) {
+  gdf <- make_grid_df(niches)
+  ggplot(gdf, aes(date, value_roll, colour = activity, fill = activity)) +
     {if (s$geom == "area")
        list(geom_area(alpha = 0.20, colour = NA),
             geom_line(linewidth = 0.75))
      else
        list(geom_line(linewidth = 0.8),
             if (s$points) geom_point(size = 0.5, alpha = 0.5) else NULL)} +
-    facet_wrap(~ facet_label, ncol = 3) +
+    facet_wrap(~ facet_label, ncol = ncol) +
     scale_colour_manual(values = setNames(s$pal, grid_order)) +
     scale_fill_manual(values = setNames(s$pal, grid_order)) +
     scale_x_date(date_breaks = "1 year", date_labels = "%Y",
@@ -170,19 +194,21 @@ cap <- paste0(
   "Data, code and analysis by @alex_papageo: github.com/papageorgiou/posts/tree/master/experiential"
 )
 
-build_version <- function(s) {
+build_version <- function(s, niches, ncol, grid_height) {
   p_top  <- build_top(s)
-  p_grid <- build_grid(s)
+  p_grid <- build_grid(s, niches, ncol)
   (p_top / p_grid) +
-    plot_layout(heights = c(1, 3)) +
+    plot_layout(heights = c(1, grid_height)) +
     plot_annotation(
-      title = "The new <span style='color:#B83A2F;'>'e-'</span> is for experiential",
+      title = paste0("The new <span style='color:", s$title_col,
+                     ";'>'e-'</span> is for <span style='color:", s$title_col,
+                     ";'>experiential</span>"),
       subtitle = "Google search interest is climbing across nearly every <b>experiential</b> category. Each panel is normalized to its own peak (=100).",
       caption = cap,
       theme = theme(
         plot.background = element_rect(fill = s$bg_fig, colour = NA),
         plot.title    = element_textbox_simple(family = base_family, face = "bold",
-                          size = 21, colour = if (s$name=="dark") "#F2F4F7" else "#1c1f22",
+                          size = 23, colour = s$text,
                           margin = margin(t = 4, b = 4)),
         plot.subtitle = element_textbox_simple(family = base_family, size = 12.5,
                           colour = s$muted, lineheight = 1.25, margin = margin(b = 8)),
@@ -195,13 +221,25 @@ build_version <- function(s) {
 }
 
 # ------------------------------------------------------------------
-# 4. Render the three variants
+# 4. Render
 # ------------------------------------------------------------------
+# Six-niche subset for the non-3x3 layouts (the five from the post + Travel).
+niches6 <- c("Education", "Marketing", "Retail", "Design", "Wellness", "Travel")
+
+# layout spec: niches, ncol, grid_height (relative to top), width, height
+layouts <- list(
+  list(suffix = "",      niches = grid_order, ncol = 3, gh = 3.0, w = 9,  h = 11),  # 3x3, all 9
+  list(suffix = "_3x2",  niches = niches6,    ncol = 3, gh = 2.0, w = 9,  h = 8.2), # 3 cols x 2 rows
+  list(suffix = "_2x3",  niches = niches6,    ncol = 2, gh = 2.6, w = 7,  h = 10)   # 2 cols x 3 rows
+)
+
 for (key in names(styles)) {
   s <- styles[[key]]
-  # accent in title is fixed red; on dark, swap to its accent
-  v <- build_version(s)
-  fn <- paste0("experiential_v2_", key, ".png")
-  ggsave(fn, v, width = 9, height = 11, units = "in", dpi = 150, bg = s$bg_fig)
-  message("Wrote ", fn)
+  for (L in layouts) {
+    v  <- build_version(s, L$niches, L$ncol, L$gh)
+    fn <- paste0("experiential_v2_", key, L$suffix, ".png")
+    ggsave(fn, v, width = L$w, height = L$h, units = "in", dpi = 150,
+           bg = s$bg_fig, device = ragg::agg_png)
+    message("Wrote ", fn)
+  }
 }
