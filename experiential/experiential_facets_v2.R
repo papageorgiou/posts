@@ -187,12 +187,18 @@ build_grid <- function(s, niches, ncol) {
     theme_variant(s)
 }
 
-cap <- paste0(
-  "Source: Google Trends, US, search interest (0-100, normalized to each term's own peak). ",
-  "Jan 2024-May 2026, 3-month rolling avg, retrieved Jun 2026.<br>",
-  "Note: a platform-wide step-up around Aug 2025 affects all terms and likely reflects a Google Trends sampling change.<br>",
-  "Data, code and analysis by @alex_papageo: github.com/papageorgiou/posts/tree/master/experiential"
-)
+# Caption: faint grey source/note lines, then a bolder, accent-coloured byline +
+# GitHub link so the credit is the most visible part of the footer.
+cap_for <- function(s) {
+  link_col <- if (s$name == "dark") s$strip_col else "#202124"
+  paste0(
+    "Source: Google Trends, US, search interest (0-100, normalized to each term's own peak). ",
+    "Jan 2024-May 2026, 3-month rolling avg, retrieved Jun 2026.<br>",
+    "Note: a platform-wide step-up around Aug 2025 affects all terms and likely reflects a Google Trends sampling change.<br>",
+    "<span style='color:", link_col, ";'><b>Data, code & analysis by @alex_papageo &nbsp;·&nbsp; ",
+    "<span style='color:", s$title_col, ";'>github.com/papageorgiou/posts</span></b></span>"
+  )
+}
 
 build_version <- function(s, niches, ncol, grid_height) {
   p_top  <- build_top(s)
@@ -202,9 +208,9 @@ build_version <- function(s, niches, ncol, grid_height) {
     plot_annotation(
       title = paste0("The new <span style='color:", s$title_col,
                      ";'>'e-'</span> is for <span style='color:", s$title_col,
-                     ";'>experiential</span>"),
+                     ";'><i>experiential</i></span>"),
       subtitle = "Google search interest is climbing across nearly every <b>experiential</b> category. Each panel is normalized to its own peak (=100).",
-      caption = cap,
+      caption = cap_for(s),
       theme = theme(
         plot.background = element_rect(fill = s$bg_fig, colour = NA),
         plot.title    = element_textbox_simple(family = base_family, face = "bold",
@@ -212,9 +218,9 @@ build_version <- function(s, niches, ncol, grid_height) {
                           margin = margin(t = 4, b = 4)),
         plot.subtitle = element_textbox_simple(family = base_family, size = 12.5,
                           colour = s$muted, lineheight = 1.25, margin = margin(b = 8)),
-        plot.caption  = element_textbox_simple(family = base_family, size = 8,
-                          colour = s$muted, halign = 0, hjust = 0, lineheight = 1.3,
-                          margin = margin(t = 10)),
+        plot.caption  = element_textbox_simple(family = base_family, size = 9.5,
+                          colour = s$muted, halign = 0, hjust = 0, lineheight = 1.4,
+                          margin = margin(t = 12)),
         plot.margin = margin(t = 12, r = 14, b = 10, l = 12)
       )
     )

@@ -11,6 +11,56 @@ categories at once, so read the lines as direction, not precise growth.
 
 ---
 
+# Short versions (chart carries the detail)
+
+Four tight angles to pair with the facet chart. Pick one.
+
+## Short 1 — Nostalgia (closest to the original draft)
+
+In the early 2000s, everything was turning into an e-something. E-commerce. E-learning. E-cards. If you could digitize it, you put an "e-" in front of it.
+
+We finished that job. Almost everything is digital now.
+
+So the prefix is changing. The new "e-" is for experiential. I pulled Google search interest across nine "experiential X" categories, from travel to retail to dating. Nearly all of them are climbing.
+
+People digitized their lives. Now they are paying to step away from the screen.
+
+## Short 2 — The reversal
+
+We spent 20 years moving everything onto a screen. E-commerce, e-learning, e-everything.
+
+Now people are paying to go the other way.
+
+I tracked Google search interest for nine "experiential X" terms. Experiential travel, retail, education, wellness, dating, and more. The lines all point up.
+
+Same "e-", opposite direction. The first one was about convenience. This one is about being there in person.
+
+## Short 3 — Builder angle
+
+If you could digitize it in the 2000s, there was a business in it. E-commerce, e-learning, e-cards. That land grab is mostly over.
+
+The next one shows up in the search data, and it points the other way. The new "e-" is for experiential.
+
+I pulled Google search interest across nine "experiential X" categories. Travel, retail, marketing, wellness, dating, and more, all climbing.
+
+The bet underneath all of them is the same: people will pay more for something they take part in than for something they passively receive.
+
+Which of these grows the most over the next three years?
+
+## Short 4 — Shortest
+
+The new "e-" is for experiential.
+
+In the early 2000s we put an "e-" on everything we could digitize. E-commerce, e-learning, e-cards. That work is done.
+
+Now the same prefix means the opposite. I tracked Google search interest for nine "experiential X" terms, from travel to dating. Almost all of them are rising.
+
+We digitized everything. Now we want to feel it in person again.
+
+---
+
+# Long versions (full category breakdown)
+
 ## Version 1 — The new "e-" era (naming / nostalgia angle)
 
 "Hi, it's nice to e-meet you!"
