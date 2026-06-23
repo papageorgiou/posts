@@ -47,7 +47,7 @@ parse_explore <- function(path) {
     filter(!is.na(date))
 }
 
-files <- list.files(pattern = " - Explore\\.md$")
+files <- list.files("Data", pattern = " - Explore\\.md$", full.names = TRUE)
 combined <- map_dfr(files, parse_explore) %>%
   filter(date >= as.Date("2024-01-01"), date <= as.Date("2026-05-01")) %>%
   arrange(activity, date) %>%

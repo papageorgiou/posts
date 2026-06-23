@@ -23,7 +23,7 @@ rolling average. Data retrieved June 2026.
 | `experiential_trends.R` | Earlier trend-extraction / exploration script. |
 | `experiential_facets_v2.R` | Styled (ggplot) faceted version of the same data. |
 | `make_mag_glass.R` | Helper that draws the `mag_glass.png` decorative element. |
-| `experiential * - Explore.md` | Raw Google Trends data, one markdown table per niche. |
+| `Data/experiential * - Explore.md` | Raw Google Trends data, one markdown table per niche. |
 | `experiential_base_3x3_xl.png` | Main image (shown above). |
 | `experiential_base_3x3.png` | 3x3 layout, standard title size. |
 | `Plots-Base/` | Additional base-R layouts (2x3 and 3x2, standard and XL). |
@@ -36,7 +36,7 @@ Run the main script from this directory:
 source("experiential_base.R")
 ```
 
-It reads the `* - Explore.md` tables and writes the six `experiential_base_*.png`
+It reads the `Data/* - Explore.md` tables and writes the six `experiential_base_*.png`
 files. No external packages are required — it is deliberately plain base R.
 
 ## Source

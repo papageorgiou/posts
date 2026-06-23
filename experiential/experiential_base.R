@@ -36,7 +36,7 @@ parse_explore <- function(path) {
   out[!is.na(out$date), ]
 }
 
-files    <- list.files(pattern = " - Explore\\.md$")
+files    <- list.files("Data", pattern = " - Explore\\.md$", full.names = TRUE)
 combined <- do.call(rbind, lapply(files, parse_explore))
 combined <- combined[combined$date >= as.Date("2024-01-01") &
                      combined$date <= as.Date("2026-05-01"), ]
@@ -63,7 +63,7 @@ sub_txt   <- "Google search interest is climbing across nearly every experientia
 # Caption split across short lines so it can be set at a larger size without
 # running off the right edge of the narrower layouts.
 cap1 <- "Source: Google Trends, Worldwide. Search interest 0-100, normalized to each term's own peak."
-cap2 <- "Monthly data May 19-May 26. Focus window: Jan 24-May 26, 3-m rolling average, retrieved Jun 2026."
+cap2 <- "Monthly data May '19-May '26. Focus window: Jan '24-May '26, 3-m rolling average, retrieved Jun 2026."
 cap3 <- "Data, code & analysis: github.com/papageorgiou/posts"
 
 xticks <- seq(as.Date("2024-01-01"), as.Date("2026-01-01"), by = "year")
