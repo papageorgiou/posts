@@ -17,7 +17,7 @@ library(ragg)
 
 setwd("/Users/alexp/gd_alpapag/apclients/posts/experiential")
 base_family <- "Helvetica Neue"
-MAG <- "\U0001F50D"   # magnifying-glass icon
+MAG <- "<img src='mag_glass.png' height='15'> "   # colourful magnifying-glass icon
 
 # ------------------------------------------------------------------
 # 1. Parse + prep (same pipeline as experiential_trends.R)
@@ -117,7 +117,7 @@ styles <- list(
   )
 )
 
-theme_variant <- function(s, strip_size = 1.05) {
+theme_variant <- function(s, strip_size = 1.28) {
   theme_minimal(base_size = 12, base_family = base_family) +
     theme(
       plot.background  = element_rect(fill = s$bg_fig, colour = NA),
@@ -131,7 +131,7 @@ theme_variant <- function(s, strip_size = 1.05) {
       axis.text  = element_text(colour = s$muted, size = rel(0.68)),
       axis.title = element_text(colour = s$muted, size = rel(0.72)),
       # larger + bolder facet titles
-      strip.text = element_text(family = base_family, face = "bold",
+      strip.text = element_markdown(family = base_family, face = "bold",
                                 size = rel(strip_size), hjust = 0,
                                 colour = s$strip_col, margin = margin(b = 3, t = 4)),
       strip.background = element_rect(fill = s$strip_fill, colour = NA),
@@ -146,9 +146,9 @@ theme_variant <- function(s, strip_size = 1.05) {
 add_geom <- function(p, s, colour) {
   if (s$geom == "area") {
     p <- p + geom_area(fill = colour, alpha = 0.22, colour = NA) +
-      geom_line(colour = colour, linewidth = 0.8)
+      geom_line(colour = colour, linewidth = 1.3)
   } else {
-    p <- p + geom_line(colour = colour, linewidth = 0.9)
+    p <- p + geom_line(colour = colour, linewidth = 1.4)
     if (s$points) p <- p + geom_point(colour = colour, size = 0.6, alpha = 0.55)
   }
   p
@@ -164,7 +164,7 @@ build_top <- function(s) {
                        expand = expansion(mult = c(0.02, 0.08))) +
     labs(x = NULL, y = NULL) +
     facet_wrap(~ paste0(MAG, " experiential — the umbrella term")) +
-    theme_variant(s, strip_size = 1.25)
+    theme_variant(s, strip_size = 1.5)
 }
 
 build_grid <- function(s, niches, ncol) {
@@ -172,9 +172,9 @@ build_grid <- function(s, niches, ncol) {
   ggplot(gdf, aes(date, value_roll, colour = activity, fill = activity)) +
     {if (s$geom == "area")
        list(geom_area(alpha = 0.20, colour = NA),
-            geom_line(linewidth = 0.75))
+            geom_line(linewidth = 1.2))
      else
-       list(geom_line(linewidth = 0.8),
+       list(geom_line(linewidth = 1.25),
             if (s$points) geom_point(size = 0.5, alpha = 0.5) else NULL)} +
     facet_wrap(~ facet_label, ncol = ncol) +
     scale_colour_manual(values = setNames(s$pal, grid_order)) +
@@ -192,9 +192,8 @@ build_grid <- function(s, niches, ncol) {
 cap_for <- function(s) {
   link_col <- if (s$name == "dark") s$strip_col else "#202124"
   paste0(
-    "Source: Google Trends, US, search interest (0-100, normalized to each term's own peak). ",
+    "Source: Google Trends, Worldwide, search interest (0-100, normalized to each term's own peak). ",
     "Jan 2024-May 2026, 3-month rolling avg, retrieved Jun 2026.<br>",
-    "Note: a platform-wide step-up around Aug 2025 affects all terms and likely reflects a Google Trends sampling change.<br>",
     "<span style='color:", link_col, ";'><b>Data, code & analysis by @alex_papageo &nbsp;·&nbsp; ",
     "<span style='color:", s$title_col, ";'>github.com/papageorgiou/posts</span></b></span>"
   )
@@ -206,10 +205,9 @@ build_version <- function(s, niches, ncol, grid_height) {
   (p_top / p_grid) +
     plot_layout(heights = c(1, grid_height)) +
     plot_annotation(
-      title = paste0("The new <span style='color:", s$title_col,
-                     ";'>'e-'</span> is for <span style='color:", s$title_col,
+      title = paste0("The rise of <span style='color:", s$title_col,
                      ";'><i>experiential</i></span>"),
-      subtitle = "Google search interest is climbing across nearly every <b>experiential</b> category. Each panel is normalized to its own peak (=100).",
+      subtitle = "Google search interest is climbing across nearly every <b>experiential</b> category.",
       caption = cap_for(s),
       theme = theme(
         plot.background = element_rect(fill = s$bg_fig, colour = NA),

@@ -95,9 +95,9 @@ my_social_theme <- function(base_size = 13, base_family = "Helvetica Neue") {
       text   = element_text(colour = text_axes),
       axis.text  = element_text(colour = "gray35", size = rel(0.75)),
       axis.title = element_text(colour = "gray35", size = rel(0.8)),
-      strip.text = element_text(face = "bold", size = rel(0.95), hjust = 0,
+      strip.text = element_text(face = "bold", size = rel(1.2), hjust = 0,
                                 colour = text_axes,
-                                margin = margin(b = 2, t = 4)),
+                                margin = margin(b = 3, t = 5)),
       strip.background = element_rect(fill = "#EADfd3", colour = NA),
       plot.title    = element_textbox_simple(face = "bold", size = rel(1.55),
                                              colour = "#1c1f22", lineheight = 1.05,
@@ -117,16 +117,14 @@ my_social_theme <- function(base_size = 13, base_family = "Helvetica Neue") {
 }
 
 my_caption <- paste0(
-  "Source: Google Trends, US, search interest (0-100, normalized to each term's own peak). ",
+  "Source: Google Trends, Worldwide, search interest (0-100, normalized to each term's own peak). ",
   "Jan 2024-May 2026, retrieved Jun 2026.<br>",
-  "Note: a platform-wide step-up around Aug 2025 affects all terms and likely reflects a Google Trends sampling change.<br>",
   "Data, code and analysis by @alex_papageo: github.com/papageorgiou/posts/tree/master/experiential"
 )
 
-title_txt <- "The new <span style='color:#B83A2F;'>'e-'</span> is for experiential"
+title_txt <- "The rise of <span style='color:#B83A2F;'><i>experiential</i></span>"
 sub_txt   <- paste0(
-  "Monthly Google search interest is climbing across nearly every <b>experiential</b> category. ",
-  "Each panel is normalized to its own peak (=100)."
+  "Monthly Google search interest is climbing across nearly every <b>experiential</b> category."
 )
 
 # ------------------------------------------------------------------
@@ -135,7 +133,7 @@ sub_txt   <- paste0(
 
 build_plot <- function(df, yvar, subtitle, smooth = FALSE) {
   p <- ggplot(df, aes(x = date, y = .data[[yvar]])) +
-    geom_line(colour = line_col, linewidth = 0.9) +
+    geom_line(colour = line_col, linewidth = 1.4) +
     facet_wrap(~ activity, ncol = 2) +
     scale_x_date(date_breaks = "6 months", date_labels = "%b '%y",
                  expand = expansion(mult = c(0.02, 0.03))) +
@@ -150,7 +148,7 @@ build_plot <- function(df, yvar, subtitle, smooth = FALSE) {
   } else {
     p <- p +
       geom_point(colour = line_col, size = 0.8, alpha = 0.6) +
-      geom_smooth(method = "lm", se = FALSE, linewidth = 0.6,
+      geom_smooth(method = "lm", se = FALSE, linewidth = 0.9,
                   linetype = "dashed", colour = trend_col)
   }
   p
