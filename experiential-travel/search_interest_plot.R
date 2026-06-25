@@ -123,11 +123,11 @@ p_rolling <- ggplot(combined_df_rolling, aes(x = date, y = normalized, color = c
   ) +
   scale_color_manual(values = company_colors) +
   labs(
-    title = "Rising Search Interest in \nExperiential Travel Startups",
+    title = "Search Demand is Rising \nfor Experiential Travel Tech\n ",
     #subtitle = "3 startups experiencing growing search demand",
     x = NULL,
     y = "Relative Search Demand (peak = 100)",
-    caption = "Search demand volume is directional and based on brand-related searches. \nData source: Google Search data, US (3m rolling avg) Feb 2022-Nov 2025.\nData, code and analysis by @alex_papageo available on Github: \nhttps://github.com/papageorgiou/posts/tree/master/experiential-travel"
+    caption = "Search demand volume is directional and based on brand-related searches. \nData source: Google Search data, Worldwide (3m rolling avg) Feb 2022-Nov 2025.\nData, code and analysis by @alex_papageo available on Github: \nhttps://github.com/papageorgiou/posts/tree/master/experiential-travel"
   ) +
   theme_minimal(base_size = 9, base_family = "sans") +
   theme(
