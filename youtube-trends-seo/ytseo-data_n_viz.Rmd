@@ -79,6 +79,26 @@ search_df_3mrl <-search_df %>% mutate(months  = month) %>%
 
 
 
+
+```
+
+```{r}
+
+
+# library(extrafont)
+# #font_import()       # First time only — scans system fonts
+# loadfonts(device = "win")
+
+```
+
+```{r}
+library(showtext)
+
+font_add_google("Roboto Condensed", "roboto_condensed")
+
+showtext_opts(dpi = 300)   # ??? match ggsave()'s default dpi
+showtext_auto()
+
 ```
 
 
@@ -87,14 +107,14 @@ search_df_3mrl <-search_df %>% mutate(months  = month) %>%
 ```{r}
 
 
-title <-"Fast-growing search interest in YouTube SEO"
+title <-"YouTube SEO on the Rise"
 sub <- NULL
-caption <- "\nSource: Google Search Data, Global June 2021- May 2025 \n github.com/papageorgiou/posts/youtube-trends-seo |  @alex_papageo "
+caption <- "\nSource: Google Search Data, Global June 2021- May 2025 \n https://github.com/papageorgiou/posts/tree/master/youtube-trends-seo |  @alex_papageo "
 
 
-search_df_3mrl %>% plot_by_category(my_title = title, my_subtitle = sub, time_col ="months", ts_col="roll_avg_round", 
+search_df_3mrl %>%    plot_by_category(my_title = title, my_subtitle = sub, time_col ="months", ts_col="roll_avg_round", 
                          colour_facet_group = "keyword", n_rows=2, my_caption=caption) + 
-  kw::my_social_theme(base_family = "Arial") + ylab("Monthly Search Volume \n")
+   ylab("Monthly Search Volume \n")  + kw::my_social_theme()
 
 
 
@@ -103,7 +123,7 @@ search_df_3mrl %>% plot_by_category(my_title = title, my_subtitle = sub, time_co
 
 
 ```{r}
-ggsave("types6-8-right-italic2.png", height = 6, width = 8) 
+ggsave("roboto_google_dpi.png", height = 5, width = 8) 
 
 
 ```
