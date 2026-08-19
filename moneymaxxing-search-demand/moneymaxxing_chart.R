@@ -73,7 +73,8 @@ variants <- list(
        credit = "ClickerHappy / Pexels", knockout = TRUE, fuzz = 6),
   list(file = "img/coins_white_pexels_19693228.jpg",
        out = "moneymaxxing_linkedin_v2_coins.png",
-       credit = "William Warby / Pexels", knockout = TRUE, fuzz = 22),
+       credit = "William Warby / Pexels", knockout = TRUE, fuzz = 22,
+       indexed = TRUE),
   list(file = "img/cash_envelope_pexels_534229.jpg",
        out = "moneymaxxing_linkedin_v3_envelope.png",
        credit = "Pixabay / Pexels", knockout = FALSE),
@@ -107,29 +108,46 @@ build_chart <- function(v) {
 
   x0 <- min(mm$month)
 
-  p <- ggplot(mm, aes(month, searches)) +
+  # the indexed version rebases every month to January 2025 = 100, so the
+  # shape of the climb is readable without the raw volumes on the axis
+  indexed <- isTRUE(v$indexed)
+
+  d <- mm
+  if (indexed) d <- mutate(d, searches = searches / first_pt$searches * 100)
+
+  y_max    <- if (indexed) 560 else 320
+  y_breaks <- if (indexed) seq(0, 500, 100) else seq(0, 300, 100)
+  y_title  <- if (indexed) "Index, Jan 2025 = 100" else "Monthly searches"
+
+  p <- ggplot(d, aes(month, searches)) +
     geom_area(fill = green, alpha = 0.10) +
     geom_line(colour = green, linewidth = 1.6) +
     geom_point(colour = green, size = 2.6) +
     annotation_custom(
       photo_grob(v),
-      xmin = x0, xmax = x0 + 210, ymin = 195, ymax = 315
+      xmin = x0, xmax = x0 + 210,
+      ymin = y_max * 0.61, ymax = y_max * 0.985
     ) +
-    geom_text(data = first_pt, aes(label = searches),
-              vjust = 2.2, hjust = 0.2, size = 5, colour = text_axes,
-              family = my_font, fontface = "bold") +
-    geom_text(data = last_pt, aes(label = searches),
-              vjust = -1.4, size = 5, colour = text_axes,
-              family = my_font, fontface = "bold") +
+    # raw-volume versions keep the first and last value called out; the
+    # indexed version does not need them, the axis already says 100
+    (if (!indexed) list(
+      geom_text(data = first_pt, aes(label = searches),
+                vjust = 2.2, hjust = 0.2, size = 5, colour = text_axes,
+                family = my_font, fontface = "bold"),
+      geom_text(data = last_pt, aes(label = searches),
+                vjust = -1.4, size = 5, colour = text_axes,
+                family = my_font, fontface = "bold")
+    ) else NULL) +
     scale_x_date(breaks = seq(min(mm$month), max(mm$month), by = "3 months"),
                  date_labels = "%b\n%Y",
                  expand = expansion(mult = c(0.06, 0.10))) +
-    scale_y_continuous(limits = c(0, 320), breaks = seq(0, 300, 100),
+    scale_y_continuous(limits = c(0, y_max), breaks = y_breaks,
                        labels = comma_format()) +
     labs(
       title = paste0("\"Moneymaxxing\" searches: ", growth, "x in 18 months"),
+      subtitle = if (indexed) "Indexed to January 2025 = 100" else NULL,
       x = NULL,
-      y = "Monthly searches",
+      y = y_title,
       caption = my_caption
     ) +
     theme_minimal(base_family = my_font, base_size = 15) +
@@ -141,7 +159,10 @@ build_chart <- function(v) {
       panel.grid.minor  = element_blank(),
       # textbox so a long headline wraps instead of running off the canvas
       plot.title = element_textbox_simple(face = "bold", size = 21, colour = text_axes,
-                                          lineheight = 1.15, margin = margin(b = 14)),
+                                          lineheight = 1.15,
+                                          margin = margin(b = if (indexed) 6 else 14)),
+      plot.subtitle = element_text(size = 14.5, colour = muted,
+                                   margin = margin(b = 14)),
       axis.text = element_text(colour = text_axes, size = 13),
       axis.title.y = element_text(colour = muted, size = 13,
                                   margin = margin(r = 8)),
