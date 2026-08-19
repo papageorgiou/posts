@@ -69,17 +69,17 @@ growth <- round(last_pt$searches / first_pt$searches, 1)
 
 variants <- list(
   list(file = "img/piggy_bank_pexels_9660.jpg",
-       out = "moneymaxxing_linkedin.png",
+       out = "charts/moneymaxxing_linkedin.png",
        credit = "ClickerHappy / Pexels", knockout = TRUE, fuzz = 6),
   list(file = "img/coins_white_pexels_19693228.jpg",
-       out = "moneymaxxing_linkedin_v2_coins.png",
+       out = "charts/moneymaxxing_linkedin_v2_coins.png",
        credit = "William Warby / Pexels", knockout = TRUE, fuzz = 22,
        indexed = TRUE),
   list(file = "img/cash_envelope_pexels_534229.jpg",
-       out = "moneymaxxing_linkedin_v3_envelope.png",
+       out = "charts/moneymaxxing_linkedin_v3_envelope.png",
        credit = "Pixabay / Pexels", knockout = FALSE),
   list(file = "img/woman_dollars_pexels_7680634.jpg",
-       out = "moneymaxxing_linkedin_v4_portrait.png",
+       out = "charts/moneymaxxing_linkedin_v4_portrait.png",
        credit = "Karola G / Pexels", knockout = FALSE)
 )
 
