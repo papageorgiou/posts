@@ -7,6 +7,7 @@ library(tidyr)
 library(ggplot2)
 library(ggtext)
 library(scales)
+library(magick)
 
 # ---- 1. Read and reshape the Keyword Planner export ---------------------
 
@@ -63,20 +64,31 @@ peak_pt  <- mm |> slice_max(searches, n = 1)
 growth <- round(last_pt$searches / first_pt$searches, 1)
 
 my_caption <- paste0(
-  "Source: Google Ads Keyword Planner, monthly search volume for \"moneymaxxing\",\n",
-  "Jan 2025-Jul 2026. Data retrieved August 2026.\n",
-  "Keyword Planner reports volumes in rounded buckets, so month-to-month steps are approximate.\n",
+  "Source: Google data, monthly search volume for \"moneymaxxing\", Jan 2025-Jul 2026.\n",
+  "Data retrieved August 2026. Photo: ClickerHappy / Pexels.\n",
   "Code and data: github.com/papageorgiou/posts/tree/main/moneymaxxing-search-demand"
 )
 
-# ---- 4. Chart -----------------------------------------------------------
+# ---- 4. Illustration ----------------------------------------------------
+# White studio background is knocked out so the photo sits on the warm paper.
+
+photo <- image_read("img/piggy_bank_pexels_9660.jpg") |>
+  image_transparent(color = "white", fuzz = 6) |>
+  image_trim()
+
+photo_grob <- grid::rasterGrob(photo, interpolate = TRUE)
+
+# ---- 5. Chart -----------------------------------------------------------
 
 p <- ggplot(mm, aes(month, searches)) +
   geom_area(fill = green, alpha = 0.10) +
   geom_line(colour = green, linewidth = 1.6) +
-  geom_point(data = mm |> filter(month != peak_pt$month),
-             colour = green, size = 2.6) +
-  geom_point(data = peak_pt, colour = red, size = 4.2) +
+  geom_point(colour = green, size = 2.6) +
+  annotation_custom(
+    photo_grob,
+    xmin = min(mm$month), xmax = min(mm$month) + 210,
+    ymin = 195, ymax = 315
+  ) +
   # first / last value labels
   geom_text(data = first_pt, aes(label = searches),
             vjust = 2.2, hjust = 0.2, size = 5, colour = text_axes,
@@ -84,10 +96,6 @@ p <- ggplot(mm, aes(month, searches)) +
   geom_text(data = last_pt, aes(label = searches),
             vjust = -1.4, size = 5, colour = text_axes,
             family = my_font, fontface = "bold") +
-  # peak callout
-  annotate("text", x = peak_pt$month, y = peak_pt$searches + 26,
-           label = paste0(peak_pt$searches, " in May 2026"),
-           colour = red, family = my_font, fontface = "bold", size = 5) +
   scale_x_date(breaks = seq(min(mm$month), max(mm$month), by = "3 months"),
                date_labels = "%b\n%Y",
                expand = expansion(mult = c(0.06, 0.10))) +
@@ -95,12 +103,6 @@ p <- ggplot(mm, aes(month, searches)) +
                      labels = comma_format()) +
   labs(
     title = paste0("\"Moneymaxxing\" searches: ", growth, "x in 18 months"),
-    subtitle = paste0(
-      "Monthly Google searches, <span style='color:", green,
-      ";'>**moneymaxxing**</span>.<br>",
-      "Tiny numbers - but the direction has been one way for 18 months.<br>",
-      "Every megatrend looked like this before it was one."
-    ),
     x = NULL,
     y = "Monthly searches",
     caption = my_caption
@@ -115,8 +117,6 @@ p <- ggplot(mm, aes(month, searches)) +
     # textbox so a long headline wraps instead of running off the canvas
     plot.title = element_textbox_simple(face = "bold", size = 21, colour = text_axes,
                                         lineheight = 1.15, margin = margin(b = 14)),
-    plot.subtitle = element_markdown(size = 14.5, colour = muted, lineheight = 1.35,
-                                     margin = margin(b = 18)),
     axis.text = element_text(colour = text_axes, size = 13),
     axis.title.y = element_text(colour = muted, size = 13,
                                 margin = margin(r = 8)),
