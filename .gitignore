@@ -115,6 +115,7 @@ startups-2022/startups-2022-plots/types9-10.png
 startups-2022/startups-2022-plots/types9-75.2.png
 startups-2022/startups-2022-plots/types9-75.png
 startups-2022/startup_search_data.csv
+startups-2022/startup_search_data.parquet
 kith-search-data-analysis/misc-files-code-graphs-data/2_clean.Rmd
 kith-search-data-analysis/misc-files-code-graphs-data/5_stats.Rmd
 kith-search-data-analysis/misc-files-code-graphs-data/6_graphs-slides-themes-reports.Rmd
